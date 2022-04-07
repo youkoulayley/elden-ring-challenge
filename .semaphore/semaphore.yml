@@ -1,0 +1,39 @@
+version: v1.0
+name: Node JS
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu2004
+global_job_config:
+  prologue:
+    commands:
+      - sem-version node 17
+      - checkout
+      - cache restore
+blocks:
+  - name: Warm cache
+    dependencies: [ ]
+    task:
+      jobs:
+        - name: Warm cache
+          commands:
+            - yarn install
+            - cache store
+  - name: Build on branches
+    dependencies: ["Warm cache"]
+    run:
+      when: "branch = 'master'"
+    task:
+      jobs:
+        - name: Build on branches
+          commands:
+            - yarn lint
+  - name: Build on PR
+    dependencies: ["Warm cache"]
+    run:
+      when: "pull_request =~ '.*'"
+    task:
+      jobs:
+        - name: Run build
+          commands:
+            - yarn lint
