@@ -9,6 +9,7 @@ const ChallengeComponent = (props) => {
         <div className="container-fluid text-center rounded-3 bg-light" style={{padding: "20px"}}>
             <div className="row">
                 <h2>{t("challenge.title")}</h2>
+                <p><em>{props.seed}</em></p>
             </div>
             <div className="row">
                 <div className="col-3">

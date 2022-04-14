@@ -7,25 +7,18 @@ const DifficultyDropdownComponent = (props) => {
 
     return (
         <div className="form-group">
-            <label htmlFor="difficultyDropdown">{t("difficulty.name")}</label>
-            <div className="dropdown" id="difficultyDropdown">
-                <button className="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                    {t("difficulty."+props.difficulty)}
-                </button>
-                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <div className="input-group">
+                <label className="input-group-text" htmlFor="inputGroupSelect01">{t("difficulty.name")}</label>
+                <select className="form-select" id="inputGroupSelect01">
                     {
                         difficultyData.map(difficulty => {
                             return (
-                                <li key={difficulty.id}><button className="dropdown-item" onClick={() => props.selectDifficulty(difficulty.id)}>{t("difficulty."+difficulty.id)}</button></li>
+                                <option key={difficulty.id} onClick={() => props.selectDifficulty(difficulty.id)} value={difficulty.id}>{t("difficulty."+difficulty.id)}</option>
                             )
                         })
                     }
-                </ul>
+                </select>
             </div>
-            <small id="difficultyHelpBlock" className="form-text text-white">
-                {t("difficulty.help")}
-            </small>
         </div>
     )
 }

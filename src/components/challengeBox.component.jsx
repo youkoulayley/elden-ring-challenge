@@ -4,7 +4,7 @@ import WaitingComponent from "./waiting.component";
 
 const ChallengeBoxComponent = (props) => {
     if (props.challenge.class) {
-       return <ChallengeComponent challenge={props.challenge} />
+       return <ChallengeComponent seed={props.seed} challenge={props.challenge} />
     } else {
         return <WaitingComponent />
     }

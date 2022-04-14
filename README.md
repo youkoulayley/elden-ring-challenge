@@ -22,3 +22,10 @@ If you want to build the project:
 ```
 yarn build
 ```
+
+## TODO
+- [x] Generate seed for each challenge
+- [ ] Store last challenge in localStorage
+- [ ] Allow multiple challenges save
+- [ ] Share challenge with picture
+- [ ] Propose weapons and not weapons type (maybe with specific ash of war if regular weapon)

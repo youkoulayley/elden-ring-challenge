@@ -23,7 +23,7 @@ i18next.use(LanguageDetector).init({
             common: common_fr
         },
     },
-    debug: true,
+    debug: false,
 });
 
 const container = document.getElementById('root');
