@@ -116,5 +116,8 @@
     "waiting": "Veuillez générer un challenge."
   },
   "welcome":  "Bienvenue Sans-Eclat. \n Vous cherchez du challenge avec Elden Ring ? Vous êtes au bon endroit.",
-  "generate": "Générer"
+  "generate": "Générer",
+  "or": "OU",
+  "searchPlaceholder": "Recherchez un challenge",
+  "search": "Rechercher"
 }

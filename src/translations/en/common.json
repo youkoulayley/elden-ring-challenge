@@ -116,5 +116,8 @@
     "waiting": "Please generate a challenge first."
   },
   "welcome":  "Welcome Tarnished. \n Looking for more challenge with Elden Ring but don't know what to do ? You're in good hands.",
-  "generate": "Generate"
+  "generate": "Generate",
+  "or": "OR",
+  "searchPlaceholder": "Search a challenge",
+  "search": "Search"
 }
