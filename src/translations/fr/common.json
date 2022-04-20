@@ -119,5 +119,11 @@
   "generate": "Générer",
   "or": "OU",
   "searchPlaceholder": "Recherchez un challenge",
-  "search": "Rechercher"
+  "search": "Rechercher",
+  "tooltipSave": "Sauvegarder le challenge",
+  "savedChallenges": "Challenges sauvegardés",
+  "errors": {
+    "too many challenges": "Trop de challenges sauvegardés (3 maximum)",
+    "invalid id": "ID du challenge invalide"
+  }
 }
