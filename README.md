@@ -25,7 +25,9 @@ yarn build
 
 ## TODO
 - [x] Generate seed for each challenge
-- [ ] Store last challenge in localStorage
-- [ ] Allow multiple challenges save
+- [x] Store last challenge in localStorage
+- [x] Allow multiple challenges save
 - [ ] Share challenge with picture
 - [ ] Propose weapons and not weapons type (maybe with specific ash of war if regular weapon)
+- [ ] Manage States
+- [ ] Manage styling
