@@ -6,7 +6,7 @@ export const exportAsImage = async (el) => {
 };
 
 export const getDifficultyFromSeedID = (seedID) => {
-    const difficulty = seedID.split('-')[0];
+    const difficulty = seedID.split("-")[0];
 
     if (difficulty.length !== 1) {
         return 0

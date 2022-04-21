@@ -1,0 +1,23 @@
+.app {
+  padding-left: 0;
+  min-height: 100%;
+  margin-bottom: -92px;
+
+  .navbar-col {
+    padding-right: 0;
+  }
+
+  .app-body {
+    margin-top: 20px;
+  }
+
+  .pusher {
+    height: 100px;
+  }
+
+  .toast-notifications {
+    position: fixed;
+    right: 20px;
+    top: 80px;
+  }
+}

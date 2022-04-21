@@ -1,12 +1,13 @@
-import React from "react";
-import {OverlayTrigger, Tooltip} from "react-bootstrap";
-import {useTranslation} from "react-i18next";
+import React from "react"
+import { OverlayTrigger, Tooltip } from "react-bootstrap"
+import { useTranslation } from "react-i18next"
+import "./save.styles.scss"
 
 const SaveComponent = ({id, savedChallenges, setSavedChallenge, removeSavedChallenge}) => {
     const {t} = useTranslation("common")
 
     const toggleSave = (id) => {
-        let element = document.getElementById("bookmark")
+        const element = document.getElementById("bookmark")
 
         if (savedChallenges.includes(id)) {
             removeSavedChallenge(id)
@@ -21,7 +22,7 @@ const SaveComponent = ({id, savedChallenges, setSavedChallenge, removeSavedChall
         }
     }
 
-    const isSaved = (id)  => (savedChallenges.includes(id));
+    const isSaved = (id) => (savedChallenges.includes(id))
 
 
     return (
@@ -30,9 +31,11 @@ const SaveComponent = ({id, savedChallenges, setSavedChallenge, removeSavedChall
                 {t("tooltipSave")}
             </Tooltip>
         }>
-            <i key={id} id={"bookmark"} style={{fontSize: "32px", cursor: "pointer", position: "absolute", left: "75%", width: "fit-content"}}
-               className={`end-0 bi ${isSaved(id) ? "bi-bookmark-fill" : "bi-bookmark"}`}
-               onClick={() => {toggleSave(id)}}
+            <i key={id}
+                className={`save-button end-0 bi ${isSaved(id) ? "bi-bookmark-fill" : "bi-bookmark"}`}
+                onClick={() => {
+                    toggleSave(id)
+                }}
             />
         </OverlayTrigger>
     )
