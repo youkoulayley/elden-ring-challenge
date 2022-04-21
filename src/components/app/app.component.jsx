@@ -53,7 +53,7 @@ const AppComponent = () => {
     }
 
     const setError = (error) => {
-        setErrors([ ...errors, {id: nanoid(10), err: error} ])
+        setErrors([ ...errors, { id: nanoid(10), err: error } ])
     }
 
     const removeError = (error) => {
@@ -67,7 +67,7 @@ const AppComponent = () => {
     }
 
     const getDifficultyFromSeedID = (seedID) => {
-        const difficulty = seedID.split("-")[0];
+        const difficulty = seedID.split("-")[0]
 
         if (difficulty.length !== 1) {
             setError(new Error("invalid id"))
@@ -86,28 +86,28 @@ const AppComponent = () => {
 
         const dif = difficultyData[difficulty - 1]
         const classes = excludeClasses(difficulty)
-        const randomClass = Math.floor(seeder() * classes.length);
+        const randomClass = Math.floor(seeder() * classes.length)
 
         const keepsakes = excludeKeepsakes(difficulty)
-        const randomKeepsakes = Math.floor(seeder() * keepsakes.length);
+        const randomKeepsakes = Math.floor(seeder() * keepsakes.length)
 
         const selectedConstraints = []
         for (let i = 0; i < dif.constraints; i++) {
             const constraints = getConstraints(selectedConstraints, difficulty)
-            const randomConstraints = Math.floor(seeder() * constraints.length);
+            const randomConstraints = Math.floor(seeder() * constraints.length)
 
             selectedConstraints.push(constraints[randomConstraints])
         }
-
+        
         const selectedWeaponTypes = []
         for (let i = 0; i < dif.weaponTypes * 2; i++) {
             const weaponTypes = getWeaponTypes(selectedWeaponTypes)
-            const randomWeaponTypes = Math.floor(seeder() * weaponTypes.length);
+            const randomWeaponTypes = Math.floor(seeder() * weaponTypes.length)
 
             selectedWeaponTypes.push(weaponTypes[randomWeaponTypes])
         }
 
-        const half = Math.ceil(selectedWeaponTypes.length / 2);
+        const half = Math.ceil(selectedWeaponTypes.length / 2)
         const leftWeaponTypes = selectedWeaponTypes.slice(0, half)
         const rightWeaponTypes = selectedWeaponTypes.slice(-half)
 
@@ -130,32 +130,32 @@ const AppComponent = () => {
             <Container className={"app"} fluid>
                 <Row>
                     <Col className={"navbar-col"}>
-                        <NavbarComponent/>
+                        <NavbarComponent />
                     </Col>
                 </Row>
                 <ToastContainer className={"toast-notifications"}>
                     {
                         errors.map((e) => {
-                            return <ErrorComponent key={e.id} error={e} removeError={removeError}/>
+                            return <ErrorComponent key={e.id} error={e} removeError={removeError} />
                         })
                     }
                 </ToastContainer>
                 <Row className="justify-content-md-center">
                     <Col md={8} className={"app-body text-center"}>
-                        <WelcomeComponent/>
+                        <WelcomeComponent />
                         <FormChallengeComponent newChallenge={newChallenge}
-                            searchChallenge={searchChallenge}/>
-                        <hr/>
+                            searchChallenge={searchChallenge} />
+                        <hr />
                         <ChallengeBox savedChallenges={savedChallenges} challenge={challenge}
                             setSavedChallenge={setSavedChallenge}
-                            removeSavedChallenge={removeSavedChallenge}/>
+                            removeSavedChallenge={removeSavedChallenge} />
                         {
                             savedChallenges.length > 0 ?
                                 <>
-                                    <hr/>
+                                    <hr />
                                     <SavedChallengesComponent searchChallenge={searchChallenge} id={challenge.id}
                                         reloadSaved={reloadSaved} setReloadSaved={setReloadSaved}
-                                        savedChallenges={savedChallenges}/>
+                                        savedChallenges={savedChallenges} />
                                 </>
                                 :
                                 <></>
@@ -166,7 +166,7 @@ const AppComponent = () => {
                 <div className="pusher"></div>
             </Container>
 
-            <FooterComponent/>
+            <FooterComponent />
         </>
     )
 }

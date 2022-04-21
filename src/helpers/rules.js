@@ -1,20 +1,20 @@
 import { classData } from "../data/class.data"
-import { constraintData } from "../data/constraint.data";
-import { keepsakeData } from "../data/keepsake.data";
+import { constraintData } from "../data/constraint.data"
+import { keepsakeData } from "../data/keepsake.data"
 import { ruleData } from "../data/rule.data"
-import { weaponTypesData } from "../data/weaponTypes.data";
+import { weaponTypesData } from "../data/weaponTypes.data"
 
 // Load all class and exclude them depending on the difficulty.
 export const excludeClasses = (difficulty) => {
     return classData.filter((e) => {
-        return !ruleData.excludeClassesByDifficulty[difficulty].includes(e.id);
+        return !ruleData.excludeClassesByDifficulty[difficulty].includes(e.id)
     })
 }
 
 // Load all keepsake and exclude them depending on the difficulty.
 export const excludeKeepsakes = (difficulty) => {
     return keepsakeData.filter((e) => {
-        return !ruleData.excludeKeepsakesByDifficulty[difficulty].includes(e.id);
+        return !ruleData.excludeKeepsakesByDifficulty[difficulty].includes(e.id)
     })
 }
 
