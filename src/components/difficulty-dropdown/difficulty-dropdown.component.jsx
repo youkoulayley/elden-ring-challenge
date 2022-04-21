@@ -1,5 +1,5 @@
 import React from "react"
-import { FormGroup, FormSelect, InputGroup } from "react-bootstrap";
+import { FormGroup, FormSelect, InputGroup } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import { difficultyData } from "../../data/difficulty.data"
 

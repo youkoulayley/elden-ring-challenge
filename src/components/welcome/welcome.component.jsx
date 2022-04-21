@@ -2,7 +2,7 @@ import React from "react"
 import { useTranslation } from "react-i18next"
 
 const WelcomeComponent = () => {
-    const {t} = useTranslation("common");
+    const {t} = useTranslation("common")
 
     return (
         <p className="text-center">

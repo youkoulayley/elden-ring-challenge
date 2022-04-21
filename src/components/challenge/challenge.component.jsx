@@ -5,8 +5,8 @@ import ClassComponent from "../class/class.component"
 import SaveComponent from "../save/save.component"
 import "./challenge.styles.scss"
 
-const ChallengeComponent = ({savedChallenges, challenge, setSavedChallenge, removeSavedChallenge}) => {
-    const {t} = useTranslation("common")
+const ChallengeComponent = ({ savedChallenges, challenge, setSavedChallenge, removeSavedChallenge }) => {
+    const { t } = useTranslation("common")
 
     return (
         <Container id={"challenge-" + challenge.id} className={"challenge text-center rounded-3 bg-light"} fluid>
@@ -14,12 +14,12 @@ const ChallengeComponent = ({savedChallenges, challenge, setSavedChallenge, remo
                 <h2>{t("challenge.title")}</h2>
                 <p><em>{challenge.id}</em></p>
                 <SaveComponent id={challenge.id} savedChallenges={savedChallenges} setSavedChallenge={setSavedChallenge}
-                    removeSavedChallenge={removeSavedChallenge}/>
+                    removeSavedChallenge={removeSavedChallenge} />
             </Row>
             <Row>
                 <Col md={3}>
                     <h3>{t("challenge.class")}</h3>
-                    <ClassComponent id={challenge.class.id}/>
+                    <ClassComponent id={challenge.class.id} />
                 </Col>
 
                 <Col md={9} className={"right-column"}>
@@ -32,7 +32,7 @@ const ChallengeComponent = ({savedChallenges, challenge, setSavedChallenge, remo
                                     </th>
                                     <td className="align-middle w-25">
                                         <img className={"keepsake"} src={"/keepsake/" + challenge.keepsake.id + ".png"}
-                                            alt="keepsake"/>
+                                            alt="keepsake" />
                                     </td>
                                     <td className="align-middle w-25">
                                         <p>{t("keepsake." + challenge.keepsake.id)}</p>
