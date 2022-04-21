@@ -6,7 +6,7 @@ const ChallengeBoxComponent = (props) => {
     if (props.challenge.class) {
         return <ChallengeComponent {...props} />
     } else {
-        return <WaitingComponent/>
+        return <WaitingComponent />
     }
 }
 

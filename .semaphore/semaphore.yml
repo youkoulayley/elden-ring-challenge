@@ -20,7 +20,7 @@ blocks:
             - yarn install
             - cache store
   - name: Build on branches
-    dependencies: ["Warm cache"]
+    dependencies: [ "Warm cache" ]
     run:
       when: "branch = 'master'"
     task:
@@ -28,8 +28,9 @@ blocks:
         - name: Build on branches
           commands:
             - yarn lint
+            - yarn build
   - name: Build on PR
-    dependencies: ["Warm cache"]
+    dependencies: [ "Warm cache" ]
     run:
       when: "pull_request =~ '.*'"
     task:
@@ -37,3 +38,4 @@ blocks:
         - name: Run build
           commands:
             - yarn lint
+            - yarn build
