@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next"
 import { getDifficultyFromSeedID } from "../../helpers/utils"
 import "./saved-challenges.styles.scss"
 
-const SavedChallengesComponent = ({id, reloadSaved, setReloadSaved, savedChallenges, generateChallenge}) => {
+const SavedChallengesComponent = ({id, reloadSaved, setReloadSaved, savedChallenges, searchChallenge}) => {
     const {t} = useTranslation("common")
 
     useEffect(() => {
@@ -19,7 +19,7 @@ const SavedChallengesComponent = ({id, reloadSaved, setReloadSaved, savedChallen
                     savedChallenges.map((e, idx) => (
                         <div key={e}
                             className={"saved-challenge"}
-                            onClick={() => generateChallenge(e)}
+                            onClick={() => searchChallenge(e)}
                         >
                             <Card key={e}
                                 bg={id === e ? "secondary" : "light"}
