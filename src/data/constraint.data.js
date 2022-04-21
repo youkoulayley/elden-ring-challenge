@@ -37,5 +37,5 @@ export const constraintData = [
     {id: 36, value: "don't use elite summons"},
     {id: 37, value: "don't restore PC"},
     {id: 38, value: "keep starting armor"},
-    {id: 39, value: "can't pick up maps fragments"}
+    {id: 39, value: "can't pick up maps fragments"},
 ]

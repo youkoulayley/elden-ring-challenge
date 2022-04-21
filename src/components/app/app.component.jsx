@@ -1,23 +1,23 @@
-import React, {useState} from "react";
-
-import {excludeClasses, excludeKeepsakes, getConstraints, getWeaponTypes} from "../helpers/rules";
-import NavbarComponent from "./navbar.component";
-import WelcomeComponent from "./welcome.component";
-import ChallengeBox from "./challengeBox.component";
-import FormGenerateComponent from "./formGenerate.component";
-import {difficultyData} from "../data/difficulty.data";
-import { nanoid } from 'nanoid'
-import * as seedrandom from 'seedrandom';
-import ErrorComponent from "./error.component";
-import {ToastContainer} from "react-bootstrap";
-import SavedChallengesComponent from "./savedChallenges.component";
-import {exportAsImage} from "../helpers/utils";
-import FooterComponent from "./footer.component";
+import { nanoid } from "nanoid"
+import React, { useState } from "react"
+import { Col, Container, Row, ToastContainer } from "react-bootstrap"
+import * as seedrandom from "seedrandom"
+import { difficultyData } from "../../data/difficulty.data"
+import { excludeClasses, excludeKeepsakes, getConstraints, getWeaponTypes } from "../../helpers/rules"
+import { exportAsImage } from "../../helpers/utils"
+import ChallengeBox from "../challenge-box/challenge-box.component"
+import ErrorComponent from "../error/error.component"
+import FooterComponent from "../footer/footer.component"
+import FormChallengeComponent from "../form-challenge/form-challenge.component"
+import NavbarComponent from "../navbar/navbar.component"
+import SavedChallengesComponent from "../saved-challenges/saved-challenges.component"
+import WelcomeComponent from "../welcome/welcome.component"
+import "./app.styles.scss"
 
 const AppComponent = () => {
-    const [difficulty, setDifficulty] = useState(1)
-    const [challenge, setChallenge] = useState({})
-    const [savedChallenges, setSavedChallenges] = useState(() => {
+    const [ difficulty, setDifficulty ] = useState(1)
+    const [ challenge, setChallenge ] = useState({})
+    const [ savedChallenges, setSavedChallenges ] = useState(() => {
         let challenges = JSON.parse(localStorage.getItem("savedChallenges"))
         if (challenges === null) {
             challenges = []
@@ -25,8 +25,8 @@ const AppComponent = () => {
 
         return challenges
     })
-    const [errors, setErrors] = useState([])
-    const [reloadSaved, setReloadSaved] = useState(false)
+    const [ errors, setErrors ] = useState([])
+    const [ reloadSaved, setReloadSaved ] = useState(false)
 
     const setSavedChallenge = (id) => {
         if (savedChallenges.length === 3) {
@@ -34,10 +34,10 @@ const AppComponent = () => {
             return false
         }
 
-        setSavedChallenges([...savedChallenges, id])
-        localStorage.setItem("savedChallenges", JSON.stringify([...savedChallenges, id]))
+        setSavedChallenges([ ...savedChallenges, id ])
+        localStorage.setItem("savedChallenges", JSON.stringify([ ...savedChallenges, id ]))
 
-        const element = document.querySelector("#challenge-"+id)
+        const element = document.querySelector("#challenge-" + id)
         exportAsImage(element).then((e) => {
             localStorage.setItem(id, e)
             setReloadSaved(true)
@@ -54,11 +54,11 @@ const AppComponent = () => {
     }
 
     const setError = (error) => {
-        setErrors([...errors, {id: nanoid(10), err: error}])
+        setErrors([ ...errors, {id: nanoid(10), err: error} ])
     }
 
     const removeError = (error) => {
-        let newErrors = errors.filter((e) => e.id !== error.id)
+        const newErrors = errors.filter((e) => e.id !== error.id)
         setErrors(newErrors)
     }
 
@@ -68,7 +68,7 @@ const AppComponent = () => {
     }
 
     const getDifficultyFromSeedID = (seedID) => {
-        const difficulty = seedID.split('-')[0];
+        const difficulty = seedID.split("-")[0];
 
         if (difficulty.length !== 1) {
             setError(new Error("invalid id"))
@@ -85,7 +85,7 @@ const AppComponent = () => {
             return
         }
 
-        const dif = difficultyData[difficulty-1]
+        const dif = difficultyData[difficulty - 1]
         const classes = excludeClasses(difficulty)
         const randomClass = Math.floor(seeder() * classes.length);
 
@@ -119,8 +119,8 @@ const AppComponent = () => {
             constraints: selectedConstraints,
             weaponTypes: {
                 left: leftWeaponTypes,
-                right: rightWeaponTypes
-            }
+                right: rightWeaponTypes,
+            },
         }
 
         setChallenge(challengeData)
@@ -128,42 +128,48 @@ const AppComponent = () => {
 
     return (
         <>
-            <div style={{ paddingLeft: "0px", minHeight: "100%", marginBottom: "-92px"}}  className="container-fluid">
-                <div className="row">
-                    <div style={{ paddingRight: "0px"}} className="col">
-                        <NavbarComponent />
-                    </div>
-                </div>
-                <ToastContainer style={{position: "fixed", right:"20px", top:"80px"}}>
+            <Container className={"app"} fluid>
+                <Row>
+                    <Col className={"navbar-col"}>
+                        <NavbarComponent/>
+                    </Col>
+                </Row>
+                <ToastContainer className={"toast-notifications"}>
                     {
                         errors.map((e) => {
-                            return <ErrorComponent key={e.id} error={e} removeError={removeError} />
+                            return <ErrorComponent key={e.id} error={e} removeError={removeError}/>
                         })
                     }
                 </ToastContainer>
-                <div className="row justify-content-md-center">
-                    <div style={{ marginTop: "20px"}} className="col-8 text-center">
-                        <WelcomeComponent />
-                        <FormGenerateComponent selectDifficulty={setDifficulty} newChallenge={newChallenge} generateChallenge={generateChallenge} difficulty={difficulty}/>
-                        <hr />
-                        <ChallengeBox savedChallenges={savedChallenges} challenge={challenge} setSavedChallenge={setSavedChallenge} removeSavedChallenge={removeSavedChallenge}/>
+                <Row className="justify-content-md-center">
+                    <Col md={8} className={"app-body text-center"}>
+                        <WelcomeComponent/>
+                        <FormChallengeComponent selectDifficulty={setDifficulty} newChallenge={newChallenge}
+                            generateChallenge={generateChallenge} difficulty={difficulty}/>
+                        <hr/>
+                        <ChallengeBox savedChallenges={savedChallenges} challenge={challenge}
+                            setSavedChallenge={setSavedChallenge}
+                            removeSavedChallenge={removeSavedChallenge}/>
                         {
                             savedChallenges.length > 0 ?
                                 <>
-                                    <hr />
-                                    <SavedChallengesComponent generateChallenge={generateChallenge} id={challenge.id} reloadSaved={reloadSaved} setReloadSaved={setReloadSaved} savedChallenges={savedChallenges} />
+                                    <hr/>
+                                    <SavedChallengesComponent generateChallenge={generateChallenge} id={challenge.id}
+                                        reloadSaved={reloadSaved} setReloadSaved={setReloadSaved}
+                                        savedChallenges={savedChallenges}/>
                                 </>
-                            :
+                                :
                                 <></>
                         }
-                    </div>
-                </div>
-                <div style={{height: "100px"}}></div>
-            </div>
+                    </Col>
+                </Row>
 
-            <FooterComponent />
+                <div className="pusher"></div>
+            </Container>
+
+            <FooterComponent/>
         </>
-)
+    )
 }
 
 export default AppComponent

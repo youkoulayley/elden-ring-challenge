@@ -8,5 +8,5 @@ export const classData = [
     {id: 7, name: "samurai"},
     {id: 8, name: "vagabond"},
     {id: 9, name: "warrior"},
-    {id: 10, name: "wretch"}
+    {id: 10, name: "wretch"},
 ]
