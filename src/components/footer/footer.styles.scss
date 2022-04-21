@@ -1,0 +1,19 @@
+footer {
+    min-height: 50px;
+    padding: 2px 300px;
+
+    .li-inline {
+        background-color: inherit;
+        border: none;
+
+        a {
+            display: inline-block;
+            height: 50px;
+        }
+
+        .bi {
+            font-size: 2em;
+            margin: 0 30px;
+        }
+    }
+}

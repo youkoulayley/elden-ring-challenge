@@ -1,8 +1,8 @@
-import {classData} from "../data/class.data"
-import {ruleData} from "../data/rule.data"
-import {keepsakeData} from "../data/keepsake.data";
-import {constraintData} from "../data/constraint.data";
-import {weaponTypesData} from "../data/weaponTypes.data";
+import { classData } from "../data/class.data"
+import { constraintData } from "../data/constraint.data";
+import { keepsakeData } from "../data/keepsake.data";
+import { ruleData } from "../data/rule.data"
+import { weaponTypesData } from "../data/weaponTypes.data";
 
 // Load all class and exclude them depending on the difficulty.
 export const excludeClasses = (difficulty) => {
@@ -19,7 +19,7 @@ export const excludeKeepsakes = (difficulty) => {
 }
 
 export const getConstraints = (constraints, difficulty) => {
-    let toDelete = constraints.map(constraint => {
+    const toDelete = constraints.map(constraint => {
         return constraint.id
     })
 
@@ -37,7 +37,7 @@ export const getConstraints = (constraints, difficulty) => {
 }
 
 export const getWeaponTypes = (weaponTypes) => {
-    let toDelete = weaponTypes.map(weaponType => {
+    const toDelete = weaponTypes.map(weaponType => {
         return weaponType.id
     })
 
