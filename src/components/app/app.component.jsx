@@ -15,7 +15,6 @@ import WelcomeComponent from "../welcome/welcome.component"
 import "./app.styles.scss"
 
 const AppComponent = () => {
-    const [ difficulty, setDifficulty ] = useState(1)
     const [ challenge, setChallenge ] = useState({})
     const [ savedChallenges, setSavedChallenges ] = useState(() => {
         let challenges = JSON.parse(localStorage.getItem("savedChallenges"))
@@ -64,7 +63,7 @@ const AppComponent = () => {
 
     const newChallenge = (difficulty) => {
         const seedID = difficulty + "-" + nanoid()
-        generateChallenge(seedID)
+        searchChallenge(seedID)
     }
 
     const getDifficultyFromSeedID = (seedID) => {
@@ -78,7 +77,7 @@ const AppComponent = () => {
         return difficulty
     }
 
-    const generateChallenge = (seedID) => {
+    const searchChallenge = (seedID) => {
         const seeder = seedrandom(seedID)
         const difficulty = getDifficultyFromSeedID(seedID)
         if (difficulty === 0) {
@@ -144,8 +143,8 @@ const AppComponent = () => {
                 <Row className="justify-content-md-center">
                     <Col md={8} className={"app-body text-center"}>
                         <WelcomeComponent/>
-                        <FormChallengeComponent selectDifficulty={setDifficulty} newChallenge={newChallenge}
-                            generateChallenge={generateChallenge} difficulty={difficulty}/>
+                        <FormChallengeComponent newChallenge={newChallenge}
+                            searchChallenge={searchChallenge}/>
                         <hr/>
                         <ChallengeBox savedChallenges={savedChallenges} challenge={challenge}
                             setSavedChallenge={setSavedChallenge}
@@ -154,7 +153,7 @@ const AppComponent = () => {
                             savedChallenges.length > 0 ?
                                 <>
                                     <hr/>
-                                    <SavedChallengesComponent generateChallenge={generateChallenge} id={challenge.id}
+                                    <SavedChallengesComponent searchChallenge={searchChallenge} id={challenge.id}
                                         reloadSaved={reloadSaved} setReloadSaved={setReloadSaved}
                                         savedChallenges={savedChallenges}/>
                                 </>

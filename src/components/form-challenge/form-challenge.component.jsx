@@ -4,15 +4,17 @@ import { useTranslation } from "react-i18next"
 import DifficultyDropdownComponent from "../difficulty-dropdown/difficulty-dropdown.component"
 import "./form-challenge.styles.scss"
 
-const FormChallengeComponent = ({selectDifficulty, difficulty, newChallenge, generateChallenge}) => {
+const FormChallengeComponent = ({newChallenge, searchChallenge}) => {
     const {t} = useTranslation("common")
+
+    const [ difficulty, setDifficulty ] = useState(1)
     const [ id, setID ] = useState("")
 
     return (
         <Row
             className={"form-challenge align-items-center justify-content-md-center rounded-3 text-white bg-secondary"}>
             <Col md={"auto"}>
-                <DifficultyDropdownComponent selectDifficulty={selectDifficulty}/>
+                <DifficultyDropdownComponent setDifficulty={setDifficulty}/>
             </Col>
 
             <Col md={"auto"}>
@@ -39,7 +41,7 @@ const FormChallengeComponent = ({selectDifficulty, difficulty, newChallenge, gen
 
             <Col md={"auto"}>
                 <Button variant={"success"}
-                    onClick={() => generateChallenge(id)}
+                    onClick={() => searchChallenge(id)}
                 >
                     <i className="bi bi-search"/>
                     {t("search")}
