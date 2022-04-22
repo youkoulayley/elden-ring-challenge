@@ -3,7 +3,7 @@ import React, { useState } from "react"
 import { Col, Container, Row, ToastContainer } from "react-bootstrap"
 import * as seedrandom from "seedrandom"
 import { difficultyData } from "../../data/difficulty.data"
-import { excludeClasses, excludeKeepsakes, getConstraints, getWeaponTypes } from "../../helpers/rules"
+import { excludeClasses, excludeKeepsakes, getConstraints, getCrystalTears, getWeaponTypes } from "../../helpers/rules"
 import { exportAsImage } from "../../helpers/utils"
 import ChallengeBox from "../challenge-box/challenge-box.component"
 import ErrorComponent from "../error/error.component"
@@ -33,27 +33,29 @@ const AppComponent = () => {
             return false
         }
 
-        setSavedChallenges([ ...savedChallenges, id ])
-        localStorage.setItem("savedChallenges", JSON.stringify([ ...savedChallenges, id ]))
-
         const element = document.querySelector("#challenge-" + id)
+        let image = ""
         exportAsImage(element).then((e) => {
-            localStorage.setItem(id, e)
+            image = e
+            setSavedChallenges([ ...savedChallenges, {"id": id, "image": image} ])
+            localStorage.setItem("savedChallenges", JSON.stringify([ ...savedChallenges, {"id": id, "image": image} ]))
+
             setReloadSaved(true)
         })
+
 
         return true
     }
 
     const removeSavedChallenge = (id) => {
-        const filtered = savedChallenges.filter((e) => e !== id)
+        const filtered = savedChallenges.filter((e) => e.id !== id)
         localStorage.setItem("savedChallenges", JSON.stringify(filtered))
         localStorage.removeItem(id)
         setSavedChallenges(filtered)
     }
 
     const setError = (error) => {
-        setErrors([ ...errors, { id: nanoid(10), err: error } ])
+        setErrors([ ...errors, {id: nanoid(10), err: error} ])
     }
 
     const removeError = (error) => {
@@ -91,6 +93,14 @@ const AppComponent = () => {
         const keepsakes = excludeKeepsakes(difficulty)
         const randomKeepsakes = Math.floor(seeder() * keepsakes.length)
 
+        const selectedCrystalTears = []
+        for (let i = 0; i < dif.crystalTears; i++) {
+            const crystalTears = getCrystalTears(selectedCrystalTears)
+            const randomCrystalTears = Math.floor(seeder() * crystalTears.length)
+
+            selectedCrystalTears.push(crystalTears[randomCrystalTears])
+        }
+
         const selectedConstraints = []
         for (let i = 0; i < dif.constraints; i++) {
             const constraints = getConstraints(selectedConstraints, difficulty)
@@ -98,27 +108,32 @@ const AppComponent = () => {
 
             selectedConstraints.push(constraints[randomConstraints])
         }
-        
-        const selectedWeaponTypes = []
-        for (let i = 0; i < dif.weaponTypes * 2; i++) {
-            const weaponTypes = getWeaponTypes(selectedWeaponTypes)
+
+        const selectedLeftWeaponTypes = []
+        for (let i = 0; i < dif.weaponTypes; i++) {
+            const weaponTypes = getWeaponTypes(selectedLeftWeaponTypes)
             const randomWeaponTypes = Math.floor(seeder() * weaponTypes.length)
 
-            selectedWeaponTypes.push(weaponTypes[randomWeaponTypes])
+            selectedLeftWeaponTypes.push(weaponTypes[randomWeaponTypes])
         }
 
-        const half = Math.ceil(selectedWeaponTypes.length / 2)
-        const leftWeaponTypes = selectedWeaponTypes.slice(0, half)
-        const rightWeaponTypes = selectedWeaponTypes.slice(-half)
+        const selectedRightWeaponTypes = []
+        for (let i = 0; i < dif.weaponTypes; i++) {
+            const weaponTypes = getWeaponTypes(selectedRightWeaponTypes)
+            const randomWeaponTypes = Math.floor(seeder() * weaponTypes.length)
+
+            selectedRightWeaponTypes.push(weaponTypes[randomWeaponTypes])
+        }
 
         const challengeData = {
             id: seedID,
             class: classes[randomClass],
             keepsake: keepsakes[randomKeepsakes],
+            crystalTears: selectedCrystalTears,
             constraints: selectedConstraints,
             weaponTypes: {
-                left: leftWeaponTypes,
-                right: rightWeaponTypes,
+                left: selectedLeftWeaponTypes,
+                right: selectedRightWeaponTypes,
             },
         }
 
@@ -130,32 +145,32 @@ const AppComponent = () => {
             <Container className={"app"} fluid>
                 <Row>
                     <Col className={"navbar-col"}>
-                        <NavbarComponent />
+                        <NavbarComponent/>
                     </Col>
                 </Row>
                 <ToastContainer className={"toast-notifications"}>
                     {
                         errors.map((e) => {
-                            return <ErrorComponent key={e.id} error={e} removeError={removeError} />
+                            return <ErrorComponent key={e.id} error={e} removeError={removeError}/>
                         })
                     }
                 </ToastContainer>
                 <Row className="justify-content-md-center">
                     <Col md={8} className={"app-body text-center"}>
-                        <WelcomeComponent />
+                        <WelcomeComponent/>
                         <FormChallengeComponent newChallenge={newChallenge}
-                            searchChallenge={searchChallenge} />
-                        <hr />
+                            searchChallenge={searchChallenge}/>
+                        <hr/>
                         <ChallengeBox savedChallenges={savedChallenges} challenge={challenge}
                             setSavedChallenge={setSavedChallenge}
-                            removeSavedChallenge={removeSavedChallenge} />
+                            removeSavedChallenge={removeSavedChallenge}/>
                         {
                             savedChallenges.length > 0 ?
                                 <>
-                                    <hr />
+                                    <hr/>
                                     <SavedChallengesComponent searchChallenge={searchChallenge} id={challenge.id}
                                         reloadSaved={reloadSaved} setReloadSaved={setReloadSaved}
-                                        savedChallenges={savedChallenges} />
+                                        savedChallenges={savedChallenges}/>
                                 </>
                                 :
                                 <></>
@@ -166,7 +181,7 @@ const AppComponent = () => {
                 <div className="pusher"></div>
             </Container>
 
-            <FooterComponent />
+            <FooterComponent/>
         </>
     )
 }
