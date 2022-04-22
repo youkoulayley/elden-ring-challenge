@@ -9,7 +9,7 @@ const SaveComponent = ({id, savedChallenges, setSavedChallenge, removeSavedChall
     const toggleSave = (id) => {
         const element = document.getElementById("bookmark")
 
-        if (savedChallenges.includes(id)) {
+        if (savedChallenges.some(e => e.id === id)) {
             removeSavedChallenge(id)
             element.classList.remove("bi-bookmark-fill")
             element.classList.add("bi-bookmark")
@@ -22,7 +22,7 @@ const SaveComponent = ({id, savedChallenges, setSavedChallenge, removeSavedChall
         }
     }
 
-    const isSaved = (id) => (savedChallenges.includes(id))
+    const isSaved = (id) => (savedChallenges.some(e => e.id === id))
 
 
     return (
@@ -32,6 +32,7 @@ const SaveComponent = ({id, savedChallenges, setSavedChallenge, removeSavedChall
             </Tooltip>
         }>
             <i key={id}
+                id={"bookmark"}
                 className={`save-button end-0 bi ${isSaved(id) ? "bi-bookmark-fill" : "bi-bookmark"}`}
                 onClick={() => {
                     toggleSave(id)
