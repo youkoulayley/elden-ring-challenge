@@ -5,8 +5,8 @@ import ClassComponent from "../class/class.component"
 import SaveComponent from "../save/save.component"
 import "./challenge.styles.scss"
 
-const ChallengeComponent = ({ savedChallenges, challenge, setSavedChallenge, removeSavedChallenge }) => {
-    const { t } = useTranslation("common")
+const ChallengeComponent = ({savedChallenges, challenge, setSavedChallenge, removeSavedChallenge}) => {
+    const {t} = useTranslation([ "common", "constraint", "keepsake", "weapon-types" ])
 
     return (
         <Container id={"challenge-" + challenge.id} className={"challenge text-center rounded-3 bg-light"} fluid>
@@ -14,30 +14,18 @@ const ChallengeComponent = ({ savedChallenges, challenge, setSavedChallenge, rem
                 <h2>{t("challenge.title")}</h2>
                 <p><em>{challenge.id}</em></p>
                 <SaveComponent id={challenge.id} savedChallenges={savedChallenges} setSavedChallenge={setSavedChallenge}
-                    removeSavedChallenge={removeSavedChallenge} />
+                    removeSavedChallenge={removeSavedChallenge}/>
             </Row>
             <Row>
                 <Col md={3}>
                     <h3>{t("challenge.class")}</h3>
-                    <ClassComponent id={challenge.class.id} />
+                    <ClassComponent id={challenge.class.id}/>
                 </Col>
 
                 <Col md={9} className={"right-column"}>
                     <Container>
                         <Table>
                             <tbody>
-                                <tr className={"text-start"}>
-                                    <th className="align-middle w-25" scope="row">
-                                        {t("challenge.keepsake")}
-                                    </th>
-                                    <td className="align-middle w-25">
-                                        <img className={"keepsake"} src={"/keepsake/" + challenge.keepsake.id + ".png"}
-                                            alt="keepsake" />
-                                    </td>
-                                    <td className="align-middle w-25">
-                                        <p>{t("keepsake." + challenge.keepsake.id)}</p>
-                                    </td>
-                                </tr>
                                 <tr className={"text-start"}>
                                     <th scope="row">
                                         {t("challenge.constraints")}
@@ -46,10 +34,39 @@ const ChallengeComponent = ({ savedChallenges, challenge, setSavedChallenge, rem
                                         <ul>
                                             {
                                                 challenge.constraints.map(constraint => {
-                                                    return <li key={constraint.id}>{t("constraint." + constraint.id)}</li>
+                                                    return <li key={constraint.id}>{t("constraint:" + constraint.id)}</li>
                                                 })
                                             }
                                         </ul>
+                                    </td>
+                                </tr>
+                                <tr className={"text-start"}>
+                                    <th className="align-middle w-30" scope="row">
+                                        {t("challenge.keepsake")}
+                                    </th>
+                                    <td colSpan={2}>
+                                        <img className={"keepsake"} src={"/keepsake/" + challenge.keepsake.id + ".png"}
+                                            alt="keepsake"
+                                            width={30}/>
+                                        {t("keepsake:" + challenge.keepsake.id)}
+                                    </td>
+                                </tr>
+                                <tr className={"text-start"}>
+                                    <th scope="row">
+                                        {t("challenge.crystalTears")}
+                                    </th>
+                                    <td colSpan={2}>
+                                        {
+                                            challenge.crystalTears.map(crystalTear => {
+                                                return <div key={crystalTear.id}>
+                                                    <img className={"crystal tear"}
+                                                        src={"/crystal-tear/" + crystalTear.id + ".png"}
+                                                        alt="crystal tear"
+                                                        width={50}/>
+                                                    {t("crystalTear:" + crystalTear.id)}
+                                                </div>
+                                            })
+                                        }
                                     </td>
                                 </tr>
                                 <tr className={"text-start"}>
@@ -58,23 +75,31 @@ const ChallengeComponent = ({ savedChallenges, challenge, setSavedChallenge, rem
                                     </th>
                                     <td>
                                         <p>{t("challenge.leftHand")}</p>
-                                        <ul>
-                                            {
-                                                challenge.weaponTypes.left.map(weaponType => {
-                                                    return <li key={weaponType.id}>{t("weaponTypes." + weaponType.id)}</li>
-                                                })
-                                            }
-                                        </ul>
+                                        {
+                                            challenge.weaponTypes.left.map(weaponType => {
+                                                return <div key={weaponType.id}>
+                                                    <img className={"weapon type"}
+                                                        src={"/weapon-type/" + weaponType.id + ".png"}
+                                                        alt="weapon type"
+                                                        width={50}/>
+                                                    {t("weaponType:" + weaponType.id)}
+                                                </div>
+                                            })
+                                        }
                                     </td>
                                     <td>
                                         <p>{t("challenge.rightHand")}</p>
-                                        <ul>
-                                            {
-                                                challenge.weaponTypes.right.map(weaponType => {
-                                                    return <li key={weaponType.id}>{t("weaponTypes." + weaponType.id)}</li>
-                                                })
-                                            }
-                                        </ul>
+                                        {
+                                            challenge.weaponTypes.right.map(weaponType => {
+                                                return <div key={weaponType.id}>
+                                                    <img className={"weapon type"}
+                                                        src={"/weapon-type/" + weaponType.id + ".png"}
+                                                        alt="weapon type"
+                                                        width={50}/>
+                                                    {t("weaponType:" + weaponType.id)}
+                                                </div>
+                                            })
+                                        }
                                     </td>
                                 </tr>
                             </tbody>

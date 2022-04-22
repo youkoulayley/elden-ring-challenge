@@ -5,7 +5,7 @@ import { getDifficultyFromSeedID } from "../../helpers/utils"
 import "./saved-challenges.styles.scss"
 
 const SavedChallengesComponent = ({id, reloadSaved, setReloadSaved, savedChallenges, searchChallenge}) => {
-    const {t} = useTranslation("common")
+    const {t} = useTranslation([ "common", "difficulty" ])
 
     useEffect(() => {
         setReloadSaved(false)
@@ -17,16 +17,16 @@ const SavedChallengesComponent = ({id, reloadSaved, setReloadSaved, savedChallen
             <CardGroup className={"cards-saved-challenges"}>
                 {
                     savedChallenges.map((e, idx) => (
-                        <div key={e}
+                        <div key={e.id}
                             className={"saved-challenge"}
-                            onClick={() => searchChallenge(e)}
+                            onClick={() => searchChallenge(e.id)}
                         >
-                            <Card key={e}
-                                bg={id === e ? "secondary" : "light"}
+                            <Card key={e.id}
+                                bg={id === e.id ? "secondary" : "light"}
                             >
                                 <Card.Img
                                     variant="top"
-                                    src={window.atob(localStorage.getItem(e))}
+                                    src={(atob(e.image))}
                                     alt={"image challenge"}
                                 />
                                 <Card.Body>
@@ -34,10 +34,10 @@ const SavedChallengesComponent = ({id, reloadSaved, setReloadSaved, savedChallen
                                         Challenge #{idx + 1}
                                     </Card.Title>
                                     <p className={"text-start"}>
-                                        <strong>ID</strong>: {e}
+                                        <strong>ID</strong>: {e.id}
                                     </p>
                                     <p className={"text-start"}>
-                                        <strong>{t("difficulty.name")}</strong>: {t("difficulty." + getDifficultyFromSeedID(e))}
+                                        <strong>{t("difficulty:name")}</strong>: {t("difficulty:" + getDifficultyFromSeedID(e.id))}
                                     </p>
                                 </Card.Body>
                             </Card>

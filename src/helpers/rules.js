@@ -1,8 +1,9 @@
 import { classData } from "../data/class.data"
 import { constraintData } from "../data/constraint.data"
+import { crystalTearData } from "../data/crystal-tear.data"
 import { keepsakeData } from "../data/keepsake.data"
 import { ruleData } from "../data/rule.data"
-import { weaponTypesData } from "../data/weaponTypes.data"
+import { weaponTypeData } from "../data/weapon-type.data"
 
 // Load all class and exclude them depending on the difficulty.
 export const excludeClasses = (difficulty) => {
@@ -15,6 +16,16 @@ export const excludeClasses = (difficulty) => {
 export const excludeKeepsakes = (difficulty) => {
     return keepsakeData.filter((e) => {
         return !ruleData.excludeKeepsakesByDifficulty[difficulty].includes(e.id)
+    })
+}
+
+export const getCrystalTears = (crystalTears) => {
+    const toDelete = crystalTears.map(crystalTear => {
+        return crystalTear.id
+    })
+
+    return crystalTearData.filter((e) => {
+        return !toDelete.includes(e.id)
     })
 }
 
@@ -41,7 +52,7 @@ export const getWeaponTypes = (weaponTypes) => {
         return weaponType.id
     })
 
-    return weaponTypesData.filter((e) => {
+    return weaponTypeData.filter((e) => {
         return !toDelete.includes(e.id)
     })
 }
