@@ -3,8 +3,8 @@ import { Toast } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import "./error.styles.scss"
 
-const ErrorComponent = ({error, removeError}) => {
-    const {t} = useTranslation("common")
+const ErrorComponent = ({ error, removeError }) => {
+    const { t } = useTranslation("error")
     const [ show, setShow ] = useState(true)
 
     useEffect(() => {
@@ -23,7 +23,7 @@ const ErrorComponent = ({error, removeError}) => {
             autohide
         >
             <Toast.Body>
-                {t("errors." + error.err.message)}
+                {t(error.err.message)}
             </Toast.Body>
         </Toast>
     )

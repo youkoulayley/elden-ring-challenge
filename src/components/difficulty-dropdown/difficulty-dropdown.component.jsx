@@ -4,12 +4,12 @@ import { useTranslation } from "react-i18next"
 import { difficultyData } from "../../data/difficulty.data"
 
 const DifficultyDropdownComponent = ({setDifficulty}) => {
-    const {t} = useTranslation("common")
+    const {t} = useTranslation("difficulty")
 
     return (
         <FormGroup>
             <InputGroup>
-                <InputGroup.Text>{t("difficulty.name")}</InputGroup.Text>
+                <InputGroup.Text>{t("name")}</InputGroup.Text>
                 <FormSelect>
                     {
                         difficultyData.map(difficulty => {
@@ -18,7 +18,7 @@ const DifficultyDropdownComponent = ({setDifficulty}) => {
                                     onClick={() => setDifficulty(difficulty.id)}
                                     value={difficulty.id}
                                 >
-                                    {t("difficulty." + difficulty.id)}
+                                    {t(difficulty.id)}
                                 </option>
                             )
                         })

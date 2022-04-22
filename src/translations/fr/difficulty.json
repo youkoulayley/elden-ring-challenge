@@ -1,0 +1,8 @@
+{
+  "1": "Facile",
+  "2": "Moyen",
+  "3": "Difficile",
+  "4": "Expert",
+  "name": "Difficulté",
+  "help": "Choisissez une difficulté pour votre challenge."
+}
