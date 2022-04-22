@@ -2,7 +2,7 @@ import html2canvas from "html2canvas"
 
 export const exportAsImage = async (el) => {
     const canvas = await html2canvas(el)
-    return btoa(canvas.toDataURL("image/jpeg", 0.2))
+    return window.btoa(canvas.toDataURL("image/jpeg", 0.2))
 }
 
 export const getDifficultyFromSeedID = (seedID) => {

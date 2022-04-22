@@ -22,5 +22,7 @@ export const ruleData = {
         [ 26, 27, 28 ], // One roll type is allowed
         [ 31, 32, 33, 34 ], // One rule for talismans
         [ 25, 29, 39 ], // Armor or not
+        [ 6, 41, 42, 43, 44, 45, 46, 47 ], // One rule for stats
+        [ 18, 48 ], // Demi Gods or all remembrances
     ],
 }
