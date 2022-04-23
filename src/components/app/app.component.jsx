@@ -37,8 +37,8 @@ const AppComponent = () => {
         let image = ""
         exportAsImage(element).then((e) => {
             image = e
-            setSavedChallenges([ ...savedChallenges, {"id": id, "image": image} ])
-            localStorage.setItem("savedChallenges", JSON.stringify([ ...savedChallenges, {"id": id, "image": image} ]))
+            setSavedChallenges([ ...savedChallenges, { "id": id, "image": image } ])
+            localStorage.setItem("savedChallenges", JSON.stringify([ ...savedChallenges, { "id": id, "image": image } ]))
 
             setReloadSaved(true)
         })
@@ -55,7 +55,7 @@ const AppComponent = () => {
     }
 
     const setError = (error) => {
-        setErrors([ ...errors, {id: nanoid(10), err: error} ])
+        setErrors([ ...errors, { id: nanoid(10), err: error } ])
     }
 
     const removeError = (error) => {
@@ -145,32 +145,32 @@ const AppComponent = () => {
             <Container className={"app"} fluid>
                 <Row>
                     <Col className={"navbar-col"}>
-                        <NavbarComponent/>
+                        <NavbarComponent />
                     </Col>
                 </Row>
                 <ToastContainer className={"toast-notifications"}>
                     {
                         errors.map((e) => {
-                            return <ErrorComponent key={e.id} error={e} removeError={removeError}/>
+                            return <ErrorComponent key={e.id} error={e} removeError={removeError} />
                         })
                     }
                 </ToastContainer>
                 <Row className="justify-content-md-center">
                     <Col md={8} className={"app-body text-center"}>
-                        <WelcomeComponent/>
+                        <WelcomeComponent />
                         <FormChallengeComponent newChallenge={newChallenge}
-                            searchChallenge={searchChallenge}/>
-                        <hr/>
+                            searchChallenge={searchChallenge} />
+                        <hr />
                         <ChallengeBox savedChallenges={savedChallenges} challenge={challenge}
                             setSavedChallenge={setSavedChallenge}
-                            removeSavedChallenge={removeSavedChallenge}/>
+                            removeSavedChallenge={removeSavedChallenge} />
                         {
                             savedChallenges.length > 0 ?
                                 <>
-                                    <hr/>
+                                    <hr />
                                     <SavedChallengesComponent searchChallenge={searchChallenge} id={challenge.id}
                                         reloadSaved={reloadSaved} setReloadSaved={setReloadSaved}
-                                        savedChallenges={savedChallenges}/>
+                                        savedChallenges={savedChallenges} />
                                 </>
                                 :
                                 <></>
@@ -181,7 +181,7 @@ const AppComponent = () => {
                 <div className="pusher"></div>
             </Container>
 
-            <FooterComponent/>
+            <FooterComponent />
         </>
     )
 }
