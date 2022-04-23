@@ -9,7 +9,7 @@ const FooterComponent = () => {
                 <Col md={6}>
                     <ListGroup horizontal className={"float-start"}>
                         <ListGroup.Item className={"li-inline"}>
-                            <span className={"text-white"}><i>© Youkoulayley</i></span>
+                            <span className={"text-white"}><i>Made by Youkoulayley</i></span>
                         </ListGroup.Item>
                     </ListGroup>
                 </Col>
@@ -17,13 +17,13 @@ const FooterComponent = () => {
                     <ListGroup horizontal className={"float-end"}>
                         <ListGroup.Item className={"li-inline"}>
                             <a href={"https://github.com/youkoulayley/elden-ring-challenge"}>
-                                <i className={"bi bi-github"}/>
+                                <i className={"bi bi-github"} />
                             </a>
                         </ListGroup.Item>
                         <ListGroup.Item className={"li-inline"}>
                             <a href={"https://www.buymeacoffee.com/bmayellebuR"}>
                                 <img src={"https://cdn.buymeacoffee.com/buttons/default-orange.png"}
-                                    alt={"Buy Me A Coffee"} height={"41"} width={"174"}/>
+                                    alt={"Buy Me A Coffee"} height={"41"} width={"174"} />
                             </a>
                         </ListGroup.Item>
                     </ListGroup>
