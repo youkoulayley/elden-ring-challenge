@@ -1,10 +1,10 @@
 import React from "react"
 import { FormGroup, FormSelect, InputGroup } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
-import { difficultyData } from "../../data/difficulty.data"
+import { latestData } from "../../data/utils"
 
-const DifficultyDropdownComponent = ({ setDifficulty }) => {
-    const { t } = useTranslation("difficulty")
+const DifficultyDropdownComponent = ({setDifficulty}) => {
+    const {t} = useTranslation("difficulty")
 
     return (
         <FormGroup>
@@ -14,7 +14,7 @@ const DifficultyDropdownComponent = ({ setDifficulty }) => {
                     setDifficulty(e.target.value)
                 }}>
                     {
-                        difficultyData.map(difficulty => {
+                        latestData().difficulties.map(difficulty => {
                             return (
                                 <option key={difficulty.id}
                                     value={difficulty.id}

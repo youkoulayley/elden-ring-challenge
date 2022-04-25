@@ -45,11 +45,11 @@ yarn build
 - [x] Allow multiple challenges save
 - [x] Manage styling
 - [x] Manage states (doesn't need more than `useState` for now)
-- [ ] Version rules and therefore challenges (that way adding rules doesn't break existing saved challenges)
-- [ ] Rework rules behavior
-- [ ] Adding more constraints
+- [x] Version rules and therefore challenges (that way adding rules doesn't break existing saved challenges)
+- [ ] Customize challenge (activating some parts or not)
 - [ ] Share challenge with picture
 - [ ] Propose weapons and not weapons type (maybe with specific ash of war if regular weapon)
+- [ ] Adding more constraints
 - [ ] Add tests
 
 If you like this project and think it deserves a little something, you can buy me a coffee here:

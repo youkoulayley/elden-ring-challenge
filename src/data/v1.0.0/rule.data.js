@@ -18,11 +18,13 @@ export const ruleData = {
         4: [ 32, 33 ],
     },
     uniqueConstraint: [
+        [ 1, 2 ], // One rule for golden seed / crystal tears
+        [ 6, 41, 42, 43, 44, 45, 46, 47 ], // One rule for stats
+        [ 7, 12, 13, 30 ], // Only one expert challenge at once
+        [ 18, 48 ], // Demi Gods or all remembrances
         [ 19, 20, 21, 22, 23, 24 ], // We can't have two endings
+        [ 25, 29, 39 ], // Armor or not
         [ 26, 27, 28 ], // One roll type is allowed
         [ 31, 32, 33, 34 ], // One rule for talismans
-        [ 25, 29, 39 ], // Armor or not
-        [ 6, 41, 42, 43, 44, 45, 46, 47 ], // One rule for stats
-        [ 18, 48 ], // Demi Gods or all remembrances
     ],
 }
