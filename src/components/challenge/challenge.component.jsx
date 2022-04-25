@@ -1,8 +1,11 @@
 import React from "react"
 import { Col, Container, Row, Table } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
+import { latestVersion } from "../../data/utils"
+import { getRuleVersionFromSeedID } from "../../helpers/utils"
 import ClassComponent from "../class/class.component"
 import SaveComponent from "../save/save.component"
+import WarningAlertComponent from "../warning-alert/warning-alert.component"
 import "./challenge.styles.scss"
 
 const ChallengeComponent = ({savedChallenges, challenge, setSavedChallenge, removeSavedChallenge}) => {
@@ -10,6 +13,12 @@ const ChallengeComponent = ({savedChallenges, challenge, setSavedChallenge, remo
 
     return (
         <Container id={"challenge-" + challenge.id} className={"challenge text-center rounded-3 bg-light"} fluid>
+            {
+                getRuleVersionFromSeedID(challenge.id) !== latestVersion() ?
+                    <WarningAlertComponent key={challenge.id} />
+                    :
+                    <></>
+            }
             <Row>
                 <h2>{t("challenge.title")}</h2>
                 <p><em>{challenge.id}</em></p>
