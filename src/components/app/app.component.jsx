@@ -2,9 +2,10 @@ import { nanoid } from "nanoid"
 import React, { useState } from "react"
 import { Col, Container, Row, ToastContainer } from "react-bootstrap"
 import * as seedrandom from "seedrandom"
-import { difficultyData } from "../../data/difficulty.data"
+import { data } from "../../data/data"
+import { latestVersion } from "../../data/utils"
 import { excludeClasses, excludeKeepsakes, getConstraints, getCrystalTears, getWeaponTypes } from "../../helpers/rules"
-import { exportAsImage } from "../../helpers/utils"
+import { exportAsImage, getDifficultyFromSeedID, getRuleVersionFromSeedID } from "../../helpers/utils"
 import ChallengeBox from "../challenge-box/challenge-box.component"
 import ErrorComponent from "../error/error.component"
 import FooterComponent from "../footer/footer.component"
@@ -64,38 +65,36 @@ const AppComponent = () => {
     }
 
     const newChallenge = (difficulty) => {
-        const seedID = difficulty + "-" + nanoid()
+        const v = window.btoa(latestVersion())
+        const seedID = difficulty + "-" + v + "-" + nanoid(12)
+
         searchChallenge(seedID)
-    }
-
-    const getDifficultyFromSeedID = (seedID) => {
-        const difficulty = seedID.split("-")[0]
-
-        if (difficulty.length !== 1) {
-            setError(new Error("invalid id"))
-            return 0
-        }
-
-        return difficulty
     }
 
     const searchChallenge = (seedID) => {
         const seeder = seedrandom(seedID)
         const difficulty = getDifficultyFromSeedID(seedID)
         if (difficulty === 0) {
+            setError(new Error("invalid id"))
             return
         }
 
-        const dif = difficultyData[difficulty - 1]
-        const classes = excludeClasses(difficulty)
+        const ruleVersion = getRuleVersionFromSeedID(seedID)
+        if (ruleVersion === 0) {
+            setError(new Error("invalid id"))
+            return
+        }
+
+        const dif = data[ruleVersion].difficulties[difficulty - 1]
+        const classes = excludeClasses(difficulty, ruleVersion)
         const randomClass = Math.floor(seeder() * classes.length)
 
-        const keepsakes = excludeKeepsakes(difficulty)
+        const keepsakes = excludeKeepsakes(difficulty, ruleVersion)
         const randomKeepsakes = Math.floor(seeder() * keepsakes.length)
 
         const selectedCrystalTears = []
         for (let i = 0; i < dif.crystalTears; i++) {
-            const crystalTears = getCrystalTears(selectedCrystalTears)
+            const crystalTears = getCrystalTears(selectedCrystalTears, ruleVersion)
             const randomCrystalTears = Math.floor(seeder() * crystalTears.length)
 
             selectedCrystalTears.push(crystalTears[randomCrystalTears])
@@ -103,7 +102,7 @@ const AppComponent = () => {
 
         const selectedConstraints = []
         for (let i = 0; i < dif.constraints; i++) {
-            const constraints = getConstraints(selectedConstraints, difficulty)
+            const constraints = getConstraints(selectedConstraints, difficulty, ruleVersion)
             const randomConstraints = Math.floor(seeder() * constraints.length)
 
             selectedConstraints.push(constraints[randomConstraints])
@@ -111,7 +110,7 @@ const AppComponent = () => {
 
         const selectedLeftWeaponTypes = []
         for (let i = 0; i < dif.weaponTypes; i++) {
-            const weaponTypes = getWeaponTypes(selectedLeftWeaponTypes)
+            const weaponTypes = getWeaponTypes(selectedLeftWeaponTypes, ruleVersion)
             const randomWeaponTypes = Math.floor(seeder() * weaponTypes.length)
 
             selectedLeftWeaponTypes.push(weaponTypes[randomWeaponTypes])
@@ -119,7 +118,7 @@ const AppComponent = () => {
 
         const selectedRightWeaponTypes = []
         for (let i = 0; i < dif.weaponTypes; i++) {
-            const weaponTypes = getWeaponTypes(selectedRightWeaponTypes)
+            const weaponTypes = getWeaponTypes(selectedRightWeaponTypes, ruleVersion)
             const randomWeaponTypes = Math.floor(seeder() * weaponTypes.length)
 
             selectedRightWeaponTypes.push(weaponTypes[randomWeaponTypes])

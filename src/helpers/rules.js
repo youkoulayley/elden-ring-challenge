@@ -1,58 +1,53 @@
-import { classData } from "../data/class.data"
-import { constraintData } from "../data/constraint.data"
-import { crystalTearData } from "../data/crystal-tear.data"
-import { keepsakeData } from "../data/keepsake.data"
-import { ruleData } from "../data/rule.data"
-import { weaponTypeData } from "../data/weapon-type.data"
+import { data } from "../data/data"
 
 // Load all class and exclude them depending on the difficulty.
-export const excludeClasses = (difficulty) => {
-    return classData.filter((e) => {
-        return !ruleData.excludeClassesByDifficulty[difficulty].includes(e.id)
+export const excludeClasses = (difficulty, ruleVersion) => {
+    return data[ruleVersion].classes.filter((e) => {
+        return !data[ruleVersion].rules.excludeClassesByDifficulty[difficulty].includes(e.id)
     })
 }
 
 // Load all keepsake and exclude them depending on the difficulty.
-export const excludeKeepsakes = (difficulty) => {
-    return keepsakeData.filter((e) => {
-        return !ruleData.excludeKeepsakesByDifficulty[difficulty].includes(e.id)
+export const excludeKeepsakes = (difficulty, ruleVersion) => {
+    return data[ruleVersion].keepsakes.filter((e) => {
+        return !data[ruleVersion].rules.excludeKeepsakesByDifficulty[difficulty].includes(e.id)
     })
 }
 
-export const getCrystalTears = (crystalTears) => {
+export const getCrystalTears = (crystalTears, ruleVersion) => {
     const toDelete = crystalTears.map(crystalTear => {
         return crystalTear.id
     })
 
-    return crystalTearData.filter((e) => {
+    return data[ruleVersion].crystalTears.filter((e) => {
         return !toDelete.includes(e.id)
     })
 }
 
-export const getConstraints = (constraints, difficulty) => {
+export const getConstraints = (constraints, difficulty, ruleVersion) => {
     const toDelete = constraints.map(constraint => {
         return constraint.id
     })
 
     constraints.forEach(constraint => {
-        ruleData.uniqueConstraint.forEach(rule => {
+        data[ruleVersion].rules.uniqueConstraint.forEach(rule => {
             if (rule.includes(constraint.id)) {
                 toDelete.push(...rule)
             }
         })
     })
 
-    return constraintData.filter((e) => {
-        return !toDelete.includes(e.id) && !ruleData.excludeConstraintsByDifficulty[difficulty].includes(e.id)
+    return data[ruleVersion].constraints.filter((e) => {
+        return !toDelete.includes(e.id) && !data[ruleVersion].rules.excludeConstraintsByDifficulty[difficulty].includes(e.id)
     })
 }
 
-export const getWeaponTypes = (weaponTypes) => {
+export const getWeaponTypes = (weaponTypes, ruleVersion) => {
     const toDelete = weaponTypes.map(weaponType => {
         return weaponType.id
     })
 
-    return weaponTypeData.filter((e) => {
+    return data[ruleVersion].weaponTypes.filter((e) => {
         return !toDelete.includes(e.id)
     })
 }
