@@ -1,4 +1,5 @@
 {
   "too many challenges": "Trop de challenges sauvegardés (3 maximum)",
-  "invalid id": "ID du challenge invalide"
+  "invalid id": "ID du challenge invalide",
+  "old challenge": "Ce challenge n'a pas été généré avec la dernière version de l'application. Toutes les fonctionnalités peuvent ne pas être disponible."
 }
