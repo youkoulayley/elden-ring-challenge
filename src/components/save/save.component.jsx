@@ -24,7 +24,6 @@ const SaveComponent = ({id, savedChallenges, setSavedChallenge, removeSavedChall
 
     const isSaved = (id) => (savedChallenges.some(e => e.id === id))
 
-
     return (
         <OverlayTrigger overlay={
             <Tooltip>
