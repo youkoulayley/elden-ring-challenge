@@ -1,27 +1,34 @@
 import React, { useState } from "react"
-import { Button, Col, Row } from "react-bootstrap"
+import { Button, Col, Form, Row } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import DifficultyDropdownComponent from "../difficulty-dropdown/difficulty-dropdown.component"
 import "./form-challenge.styles.scss"
 
-const FormChallengeComponent = ({newChallenge, searchChallenge}) => {
-    const {t} = useTranslation("common")
+const FormChallengeComponent = ({ newChallenge, searchChallenge }) => {
+    const { t } = useTranslation("common")
 
     const [ difficulty, setDifficulty ] = useState(1)
     const [ id, setID ] = useState("")
+
+    const [ flaskOfWondrousPhysick, setFlaskOfWondrousPhysick ] = useState(true)
 
     return (
         <Row
             className={"form-challenge align-items-center justify-content-md-center rounded-3 text-white bg-secondary"}>
             <Col md={"auto"}>
-                <DifficultyDropdownComponent setDifficulty={setDifficulty}/>
+                <DifficultyDropdownComponent setDifficulty={setDifficulty} />
+                <Form.Group controlId="formBasicCheckbox">
+                    <Form.Check checked={flaskOfWondrousPhysick}
+                        onChange={() => setFlaskOfWondrousPhysick(!flaskOfWondrousPhysick)} type="checkbox"
+                        label="Flask of Wondrous Physick" />
+                </Form.Group>
             </Col>
 
             <Col md={"auto"}>
                 <Button variant={"success"}
-                    onClick={() => newChallenge(difficulty)}
+                    onClick={() => newChallenge(difficulty, flaskOfWondrousPhysick)}
                 >
-                    <i className="bi bi-shuffle"/>
+                    <i className="bi bi-shuffle" />
                     {t("generate")}
                 </Button>
             </Col>
@@ -43,7 +50,7 @@ const FormChallengeComponent = ({newChallenge, searchChallenge}) => {
                 <Button variant={"success"}
                     onClick={() => searchChallenge(id)}
                 >
-                    <i className="bi bi-search"/>
+                    <i className="bi bi-search" />
                     {t("search")}
                 </Button>
             </Col>

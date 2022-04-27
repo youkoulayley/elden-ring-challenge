@@ -5,13 +5,19 @@ import * as seedrandom from "seedrandom"
 import { data } from "../../data/data"
 import { latestVersion } from "../../data/utils"
 import { excludeClasses, excludeKeepsakes, getConstraints, getCrystalTears, getWeaponTypes } from "../../helpers/rules"
-import { exportAsImage, getDifficultyFromSeedID, getRuleVersionFromSeedID } from "../../helpers/utils"
-import ChallengeBox from "../challenge-box/challenge-box.component"
+import {
+    exportAsImage,
+    getDifficultyFromSeedID,
+    getFlaskOfWondrousPhysickFromSeedID,
+    getRuleVersionFromSeedID,
+} from "../../helpers/utils"
+import ChallengeComponent from "../challenge/challenge.component"
 import ErrorComponent from "../error/error.component"
 import FooterComponent from "../footer/footer.component"
 import FormChallengeComponent from "../form-challenge/form-challenge.component"
 import NavbarComponent from "../navbar/navbar.component"
 import SavedChallengesComponent from "../saved-challenges/saved-challenges.component"
+import WaitingComponent from "../waiting/waiting.component"
 import WelcomeComponent from "../welcome/welcome.component"
 import "./app.styles.scss"
 
@@ -64,9 +70,14 @@ const AppComponent = () => {
         setErrors(newErrors)
     }
 
-    const newChallenge = (difficulty) => {
-        const v = window.btoa(latestVersion())
-        const seedID = difficulty + "-" + v + "-" + nanoid(12)
+    const newChallenge = (difficulty, flaskOfWondrousPhysick) => {
+        let flask = 0
+        if (flaskOfWondrousPhysick) {
+            flask = 1
+        }
+
+        const info = window.btoa(difficulty + "-" + flask + "-" + latestVersion().split("v")[1])
+        const seedID = info + "-" + nanoid(12)
 
         searchChallenge(seedID)
     }
@@ -79,8 +90,9 @@ const AppComponent = () => {
             return
         }
 
+        const flaskOfWondrousPhysick = getFlaskOfWondrousPhysickFromSeedID(seedID)
         const ruleVersion = getRuleVersionFromSeedID(seedID)
-        if (ruleVersion === 0) {
+        if (ruleVersion === "") {
             setError(new Error("invalid id"))
             return
         }
@@ -93,11 +105,13 @@ const AppComponent = () => {
         const randomKeepsakes = Math.floor(seeder() * keepsakes.length)
 
         const selectedCrystalTears = []
-        for (let i = 0; i < dif.crystalTears; i++) {
-            const crystalTears = getCrystalTears(selectedCrystalTears, ruleVersion)
-            const randomCrystalTears = Math.floor(seeder() * crystalTears.length)
+        if (flaskOfWondrousPhysick) {
+            for (let i = 0; i < dif.crystalTears; i++) {
+                const crystalTears = getCrystalTears(selectedCrystalTears, ruleVersion)
+                const randomCrystalTears = Math.floor(seeder() * crystalTears.length)
 
-            selectedCrystalTears.push(crystalTears[randomCrystalTears])
+                selectedCrystalTears.push(crystalTears[randomCrystalTears])
+            }
         }
 
         const selectedConstraints = []
@@ -160,9 +174,14 @@ const AppComponent = () => {
                         <FormChallengeComponent newChallenge={newChallenge}
                             searchChallenge={searchChallenge} />
                         <hr />
-                        <ChallengeBox savedChallenges={savedChallenges} challenge={challenge}
-                            setSavedChallenge={setSavedChallenge}
-                            removeSavedChallenge={removeSavedChallenge} />
+                        {
+                            challenge.class ?
+                                <ChallengeComponent savedChallenges={savedChallenges} challenge={challenge}
+                                    setSavedChallenge={setSavedChallenge}
+                                    removeSavedChallenge={removeSavedChallenge} />
+                                :
+                                <WaitingComponent />
+                        }
                         {
                             savedChallenges.length > 0 ?
                                 <>
