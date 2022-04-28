@@ -1,6 +1,6 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
-import "./challenge-keepsake.styles.scss"
+import ChallengeItemComponent from "../challenge-item/challenge-item.component"
 
 const ChallengeKeepsakeComponent = ({ keepsake }) => {
     const { t } = useTranslation([ "common", "keepsake" ])
@@ -11,10 +11,7 @@ const ChallengeKeepsakeComponent = ({ keepsake }) => {
                 {t("challenge.keepsake")}
             </th>
             <td colSpan={2}>
-                <img className={"keepsake"} src={"/keepsake/" + keepsake.id + ".png"}
-                    alt="keepsake"
-                    width={30} />
-                {t("keepsake:" + keepsake.id)}
+                <ChallengeItemComponent key={keepsake.id} type={"keepsake"} item={keepsake} />
             </td>
         </tr>
     )

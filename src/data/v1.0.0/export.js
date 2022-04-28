@@ -1,6 +1,7 @@
 export * from "./class.data"
 export * from "./constraint.data"
 export * from "./crystal-tear.data"
+export * from "./talisman.data"
 export * from "./difficulty.data"
 export * from "./keepsake.data"
 export * from "./rule.data"
