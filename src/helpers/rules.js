@@ -51,3 +51,13 @@ export const getWeaponTypes = (weaponTypes, ruleVersion) => {
         return !toDelete.includes(e.id)
     })
 }
+
+export const getTalismans = (talismans, ruleVersion) => {
+    const toDelete = talismans.map(talisman => {
+        return talisman.id
+    })
+
+    return data[ruleVersion].talismans.filter((e) => {
+        return !toDelete.includes(e.id)
+    })
+}

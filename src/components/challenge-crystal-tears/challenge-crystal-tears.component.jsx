@@ -1,24 +1,35 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
+import ChallengeItemComponent from "../challenge-item/challenge-item.component"
 
 const ChallengeCrystalTearsComponent = ({ crystalTears }) => {
     const { t } = useTranslation([ "common", "crystalTear" ])
+
+    const splitCrystalTears = () => {
+        const middleIndex = Math.ceil(crystalTears.length / 2)
+
+        const firstHalf = crystalTears.slice().splice(0, middleIndex)
+        const secondHalf = crystalTears.slice().splice(-middleIndex)
+
+        return { firstHalf, secondHalf }
+    }
 
     return (
         <tr className={"text-start"}>
             <th scope="row">
                 {t("challenge.crystalTears")}
             </th>
-            <td colSpan={2}>
+            <td>
                 {
-                    crystalTears.map(crystalTear => {
-                        return <div key={crystalTear.id}>
-                            <img className={"crystal tear"}
-                                src={"/crystal-tear/" + crystalTear.id + ".png"}
-                                alt="crystal tear"
-                                width={50} />
-                            {t("crystalTear:" + crystalTear.id)}
-                        </div>
+                    splitCrystalTears().firstHalf.map(crystalTear => {
+                        return <ChallengeItemComponent key={crystalTear.id} type={"crystalTear"} item={crystalTear} />
+                    })
+                }
+            </td>
+            <td>
+                {
+                    splitCrystalTears().secondHalf.map(crystalTear => {
+                        return <ChallengeItemComponent key={crystalTear.id} type={"crystalTear"} item={crystalTear} />
                     })
                 }
             </td>

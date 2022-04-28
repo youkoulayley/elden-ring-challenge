@@ -1,15 +1,22 @@
+import { Base64 } from "js-base64"
 import React, { useEffect } from "react"
 import { Card, CardGroup } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
-import { getDifficultyFromSeedID } from "../../helpers/utils"
+import { getInfoFromSeedID } from "../../helpers/utils"
 import "./saved-challenges.styles.scss"
 
-const SavedChallengesComponent = ({id, reloadSaved, setReloadSaved, savedChallenges, searchChallenge}) => {
-    const {t} = useTranslation([ "common", "difficulty" ])
+const SavedChallengesComponent = ({ id, reloadSaved, setReloadSaved, savedChallenges, searchChallenge }) => {
+    const { t } = useTranslation([ "common", "difficulty" ])
 
     useEffect(() => {
         setReloadSaved(false)
     }, [ reloadSaved ])
+
+    const getDifficulty = (id) => {
+        const { difficulty } = getInfoFromSeedID(id)
+
+        return difficulty
+    }
 
     return (
         <>
@@ -26,18 +33,18 @@ const SavedChallengesComponent = ({id, reloadSaved, setReloadSaved, savedChallen
                             >
                                 <Card.Img
                                     variant="top"
-                                    src={(atob(e.image))}
+                                    src={(Base64.decode(e.image))}
                                     alt={"image challenge"}
                                 />
                                 <Card.Body>
                                     <Card.Title>
-                                        Challenge #{idx + 1}
+                    Challenge #{idx + 1}
                                     </Card.Title>
                                     <p className={"text-start"}>
                                         <strong>ID</strong>: {e.id}
                                     </p>
                                     <p className={"text-start"}>
-                                        <strong>{t("difficulty:name")}</strong>: {t("difficulty:" + getDifficultyFromSeedID(e.id))}
+                                        <strong>{t("difficulty:name")}</strong>: {t("difficulty:" + getDifficulty(e.id))}
                                     </p>
                                 </Card.Body>
                             </Card>

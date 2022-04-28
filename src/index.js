@@ -13,6 +13,7 @@ import crystal_tear_en from "./translations/en/crystal-tear.json"
 import difficulty_en from "./translations/en/difficulty.json"
 import error_en from "./translations/en/error.json"
 import keepsake_en from "./translations/en/keepsake.json"
+import talisman_en from "./translations/en/talisman.json"
 import weapon_type_en from "./translations/en/weapon-type.json"
 import class_fr from "./translations/fr/class.json"
 import common_fr from "./translations/fr/common.json"
@@ -21,6 +22,7 @@ import crystal_tear_fr from "./translations/fr/crystal-tear.json"
 import difficulty_fr from "./translations/fr/difficulty.json"
 import error_fr from "./translations/fr/error.json"
 import keepsake_fr from "./translations/fr/keepsake.json"
+import talisman_fr from "./translations/fr/talisman.json"
 import weapon_type_fr from "./translations/fr/weapon-type.json"
 
 i18next.use(LanguageDetector).init({
@@ -35,6 +37,7 @@ i18next.use(LanguageDetector).init({
             common: common_en,
             constraint: constraint_en,
             crystalTear: crystal_tear_en,
+            talisman: talisman_en,
             difficulty: difficulty_en,
             error: error_en,
             keepsake: keepsake_en,
@@ -44,6 +47,7 @@ i18next.use(LanguageDetector).init({
             class: class_fr,
             common: common_fr,
             crystalTear: crystal_tear_fr,
+            talisman: talisman_fr,
             constraint: constraint_fr,
             difficulty: difficulty_fr,
             error: error_fr,
