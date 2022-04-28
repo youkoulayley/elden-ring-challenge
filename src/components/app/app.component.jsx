@@ -50,7 +50,7 @@ const AppComponent = () => {
 
             setReloadSaved(true)
         })
-        
+
         return true
     }
 
@@ -90,7 +90,7 @@ const AppComponent = () => {
     const searchChallenge = (seedID) => {
         const seeder = seedrandom(seedID)
 
-        const {difficulty, flask, talismans, version} = getInfoFromSeedID(seedID)
+        const { difficulty, flask, talismans, version } = getInfoFromSeedID(seedID)
         if (difficulty === "0" || version === "") {
             setError(new Error("invalid id"))
             return
@@ -114,7 +114,7 @@ const AppComponent = () => {
         }
 
         const selectedTalismans = []
-        if (talismans === "1") {
+        if (talismans === "1" && difficulty !== "1") {
             for (let i = 0; i < dif.talismans; i++) {
                 const talisman = getTalismans(selectedTalismans, version)
                 const randomTalismans = Math.floor(seeder() * talisman.length)

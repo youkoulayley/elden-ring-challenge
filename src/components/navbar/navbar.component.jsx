@@ -7,14 +7,14 @@ const NavbarComponent = () => {
         <Navbar bg={"light"}>
             <Container fluid={true}>
                 <a href={"/"} className={"navbar-brand"}>
-                    Elden Ring Challenge Randomizer
+          Elden Ring Challenge Randomizer
                 </a>
                 <div className={"d-flex"}>
                     <Button variant={"outline-light"} onClick={() => i18next.changeLanguage("fr")}>
-                        <span className={"fi fi-fr"}/>
+                        <span className={"fi fi-fr"} />
                     </Button>
                     <Button variant={"outline-light"} onClick={() => i18next.changeLanguage("en")}>
-                        <span className={"fi fi-gb"}/>
+                        <span className={"fi fi-gb"} />
                     </Button>
                 </div>
             </Container>

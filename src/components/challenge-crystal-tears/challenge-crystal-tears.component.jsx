@@ -11,7 +11,7 @@ const ChallengeCrystalTearsComponent = ({ crystalTears }) => {
         const firstHalf = crystalTears.slice().splice(0, middleIndex)
         const secondHalf = crystalTears.slice().splice(-middleIndex)
 
-        return {firstHalf, secondHalf}
+        return { firstHalf, secondHalf }
     }
 
     return (
@@ -22,6 +22,13 @@ const ChallengeCrystalTearsComponent = ({ crystalTears }) => {
             <td>
                 {
                     splitCrystalTears().firstHalf.map(crystalTear => {
+                        return <ChallengeItemComponent key={crystalTear.id} type={"crystalTear"} item={crystalTear} />
+                    })
+                }
+            </td>
+            <td>
+                {
+                    splitCrystalTears().secondHalf.map(crystalTear => {
                         return <ChallengeItemComponent key={crystalTear.id} type={"crystalTear"} item={crystalTear} />
                     })
                 }

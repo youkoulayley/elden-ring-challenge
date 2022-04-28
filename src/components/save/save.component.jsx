@@ -3,8 +3,8 @@ import { OverlayTrigger, Tooltip } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import "./save.styles.scss"
 
-const SaveComponent = ({id, savedChallenges, setSavedChallenge, removeSavedChallenge}) => {
-    const {t} = useTranslation("common")
+const SaveComponent = ({ id, savedChallenges, setSavedChallenge, removeSavedChallenge }) => {
+    const { t } = useTranslation("common")
 
     const toggleSave = (id) => {
         const element = document.getElementById("bookmark")

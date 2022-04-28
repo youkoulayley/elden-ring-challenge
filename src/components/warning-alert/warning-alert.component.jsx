@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next"
 
 const WarningAlertComponent = () => {
     const [ show, setShow ] = useState(true)
-    const {t} = useTranslation("error")
+    const { t } = useTranslation("error")
 
     return (
         <Alert variant={"warning"} dismissible show={show} onClose={() => setShow(false)}>
