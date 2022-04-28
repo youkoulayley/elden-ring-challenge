@@ -11,22 +11,28 @@ const FormChallengeComponent = ({ newChallenge, searchChallenge }) => {
     const [ id, setID ] = useState("")
 
     const [ flaskOfWondrousPhysick, setFlaskOfWondrousPhysick ] = useState(true)
+    const [ talismans, setTalismans ] = useState(true)
 
     return (
         <Row
             className={"form-challenge align-items-center justify-content-md-center rounded-3 text-white bg-secondary"}>
             <Col md={"auto"}>
                 <DifficultyDropdownComponent setDifficulty={setDifficulty} />
-                <Form.Group controlId="formBasicCheckbox">
+                <Form.Group controlId="flask">
                     <Form.Check checked={flaskOfWondrousPhysick}
                         onChange={() => setFlaskOfWondrousPhysick(!flaskOfWondrousPhysick)} type="checkbox"
                         label="Flask of Wondrous Physick" />
+                </Form.Group>
+                <Form.Group controlId="talismans">
+                    <Form.Check checked={talismans}
+                        onChange={() => setTalismans(!talismans)} type="checkbox"
+                        label="Talismans" />
                 </Form.Group>
             </Col>
 
             <Col md={"auto"}>
                 <Button variant={"success"}
-                    onClick={() => newChallenge(difficulty, flaskOfWondrousPhysick)}
+                    onClick={() => newChallenge(difficulty, flaskOfWondrousPhysick, talismans)}
                 >
                     <i className="bi bi-shuffle" />
                     {t("generate")}

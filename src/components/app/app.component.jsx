@@ -3,14 +3,15 @@ import React, { useState } from "react"
 import { Col, Container, Row, ToastContainer } from "react-bootstrap"
 import * as seedrandom from "seedrandom"
 import { data } from "../../data/data"
-import { latestVersion } from "../../data/utils"
-import { excludeClasses, excludeKeepsakes, getConstraints, getCrystalTears, getWeaponTypes } from "../../helpers/rules"
 import {
-    exportAsImage,
-    getDifficultyFromSeedID,
-    getFlaskOfWondrousPhysickFromSeedID,
-    getRuleVersionFromSeedID,
-} from "../../helpers/utils"
+    excludeClasses,
+    excludeKeepsakes,
+    getConstraints,
+    getCrystalTears,
+    getTalismans,
+    getWeaponTypes,
+} from "../../helpers/rules"
+import { exportAsImage, generateInfoForSeedID, getInfoFromSeedID } from "../../helpers/utils"
 import ChallengeComponent from "../challenge/challenge.component"
 import ErrorComponent from "../error/error.component"
 import FooterComponent from "../footer/footer.component"
@@ -49,8 +50,7 @@ const AppComponent = () => {
 
             setReloadSaved(true)
         })
-
-
+        
         return true
     }
 
@@ -70,13 +70,18 @@ const AppComponent = () => {
         setErrors(newErrors)
     }
 
-    const newChallenge = (difficulty, flaskOfWondrousPhysick) => {
+    const newChallenge = (difficulty, flaskOfWondrousPhysick, talismans) => {
         let flask = 0
         if (flaskOfWondrousPhysick) {
             flask = 1
         }
 
-        const info = window.btoa(difficulty + "-" + flask + "-" + latestVersion().split("v")[1])
+        let talisman = 0
+        if (talismans) {
+            talisman = 1
+        }
+
+        const info = generateInfoForSeedID(difficulty, flask, talisman)
         const seedID = info + "-" + nanoid(12)
 
         searchChallenge(seedID)
@@ -84,39 +89,43 @@ const AppComponent = () => {
 
     const searchChallenge = (seedID) => {
         const seeder = seedrandom(seedID)
-        const difficulty = getDifficultyFromSeedID(seedID)
-        if (difficulty === 0) {
+
+        const {difficulty, flask, talismans, version} = getInfoFromSeedID(seedID)
+        if (difficulty === "0" || version === "") {
             setError(new Error("invalid id"))
             return
         }
 
-        const flaskOfWondrousPhysick = getFlaskOfWondrousPhysickFromSeedID(seedID)
-        const ruleVersion = getRuleVersionFromSeedID(seedID)
-        if (ruleVersion === "") {
-            setError(new Error("invalid id"))
-            return
-        }
-
-        const dif = data[ruleVersion].difficulties[difficulty - 1]
-        const classes = excludeClasses(difficulty, ruleVersion)
+        const dif = data[version].difficulties[difficulty - 1]
+        const classes = excludeClasses(difficulty, version)
         const randomClass = Math.floor(seeder() * classes.length)
 
-        const keepsakes = excludeKeepsakes(difficulty, ruleVersion)
+        const keepsakes = excludeKeepsakes(difficulty, version)
         const randomKeepsakes = Math.floor(seeder() * keepsakes.length)
 
         const selectedCrystalTears = []
-        if (flaskOfWondrousPhysick) {
+        if (flask === "1") {
             for (let i = 0; i < dif.crystalTears; i++) {
-                const crystalTears = getCrystalTears(selectedCrystalTears, ruleVersion)
+                const crystalTears = getCrystalTears(selectedCrystalTears, version)
                 const randomCrystalTears = Math.floor(seeder() * crystalTears.length)
 
                 selectedCrystalTears.push(crystalTears[randomCrystalTears])
             }
         }
 
+        const selectedTalismans = []
+        if (talismans === "1") {
+            for (let i = 0; i < dif.talismans; i++) {
+                const talisman = getTalismans(selectedTalismans, version)
+                const randomTalismans = Math.floor(seeder() * talisman.length)
+
+                selectedTalismans.push(talisman[randomTalismans])
+            }
+        }
+
         const selectedConstraints = []
         for (let i = 0; i < dif.constraints; i++) {
-            const constraints = getConstraints(selectedConstraints, difficulty, ruleVersion)
+            const constraints = getConstraints(selectedConstraints, difficulty, version)
             const randomConstraints = Math.floor(seeder() * constraints.length)
 
             selectedConstraints.push(constraints[randomConstraints])
@@ -124,7 +133,7 @@ const AppComponent = () => {
 
         const selectedLeftWeaponTypes = []
         for (let i = 0; i < dif.weaponTypes; i++) {
-            const weaponTypes = getWeaponTypes(selectedLeftWeaponTypes, ruleVersion)
+            const weaponTypes = getWeaponTypes(selectedLeftWeaponTypes, version)
             const randomWeaponTypes = Math.floor(seeder() * weaponTypes.length)
 
             selectedLeftWeaponTypes.push(weaponTypes[randomWeaponTypes])
@@ -132,7 +141,7 @@ const AppComponent = () => {
 
         const selectedRightWeaponTypes = []
         for (let i = 0; i < dif.weaponTypes; i++) {
-            const weaponTypes = getWeaponTypes(selectedRightWeaponTypes, ruleVersion)
+            const weaponTypes = getWeaponTypes(selectedRightWeaponTypes, version)
             const randomWeaponTypes = Math.floor(seeder() * weaponTypes.length)
 
             selectedRightWeaponTypes.push(weaponTypes[randomWeaponTypes])
@@ -143,6 +152,7 @@ const AppComponent = () => {
             class: classes[randomClass],
             keepsake: keepsakes[randomKeepsakes],
             crystalTears: selectedCrystalTears,
+            talismans: selectedTalismans,
             constraints: selectedConstraints,
             weaponTypes: {
                 left: selectedLeftWeaponTypes,
