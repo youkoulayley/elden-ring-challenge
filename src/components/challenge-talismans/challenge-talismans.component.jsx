@@ -11,7 +11,7 @@ const ChallengeTalismansComponent = ({ talismans }) => {
         const firstHalf = talismans.slice().splice(0, middleIndex)
         const secondHalf = talismans.slice().splice(-middleIndex)
 
-        return {firstHalf, secondHalf}
+        return { firstHalf, secondHalf }
     }
 
     return (

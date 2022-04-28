@@ -5,8 +5,8 @@ import { useTranslation } from "react-i18next"
 import { getInfoFromSeedID } from "../../helpers/utils"
 import "./saved-challenges.styles.scss"
 
-const SavedChallengesComponent = ({id, reloadSaved, setReloadSaved, savedChallenges, searchChallenge}) => {
-    const {t} = useTranslation([ "common", "difficulty" ])
+const SavedChallengesComponent = ({ id, reloadSaved, setReloadSaved, savedChallenges, searchChallenge }) => {
+    const { t } = useTranslation([ "common", "difficulty" ])
 
     useEffect(() => {
         setReloadSaved(false)
@@ -38,7 +38,7 @@ const SavedChallengesComponent = ({id, reloadSaved, setReloadSaved, savedChallen
                                 />
                                 <Card.Body>
                                     <Card.Title>
-                                        Challenge #{idx + 1}
+                    Challenge #{idx + 1}
                                     </Card.Title>
                                     <p className={"text-start"}>
                                         <strong>ID</strong>: {e.id}
