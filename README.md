@@ -46,7 +46,10 @@ yarn build
 - [x] Manage styling
 - [x] Manage states (doesn't need more than `useState` for now)
 - [x] Version rules and therefore challenges (that way adding rules doesn't break existing saved challenges)
-- [ ] Customize challenge (activating some parts or not)
+- [x] Customize challenge (activating some parts or not)
+- [x] Add talismans
+- [ ] Link items (some constraints should not allow some keepsake/weapons/talismans/crystal tears)
+- [ ] Option to rename challenge 
 - [ ] Share challenge with picture
 - [ ] Propose weapons and not weapons type (maybe with specific ash of war if regular weapon)
 - [ ] Adding more constraints
