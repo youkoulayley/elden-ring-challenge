@@ -22,14 +22,14 @@ const ChallengeCrystalTearsComponent = ({ crystalTears }) => {
             <td>
                 {
                     splitCrystalTears().firstHalf.map(crystalTear => {
-                        return <ChallengeItemComponent key={crystalTear.id} type={"crystalTear"} item={crystalTear} />
+                        return <ChallengeItemComponent key={"crystal-tear-" + crystalTear.id} type={"crystalTear"} item={crystalTear} />
                     })
                 }
             </td>
             <td>
                 {
                     splitCrystalTears().secondHalf.map(crystalTear => {
-                        return <ChallengeItemComponent key={crystalTear.id} type={"crystalTear"} item={crystalTear} />
+                        return <ChallengeItemComponent key={"crystal-tear-" + crystalTear.id} type={"crystalTear"} item={crystalTear} />
                     })
                 }
             </td>

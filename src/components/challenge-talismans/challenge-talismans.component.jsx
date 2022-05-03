@@ -22,14 +22,14 @@ const ChallengeTalismansComponent = ({ talismans }) => {
             <td>
                 {
                     splitTalismans().firstHalf.map(talisman => {
-                        return <ChallengeItemComponent key={talisman.id} type={"talisman"} item={talisman} />
+                        return <ChallengeItemComponent key={"talisman-" + talisman.id} type={"talisman"} item={talisman} />
                     })
                 }
             </td>
             <td>
                 {
                     splitTalismans().secondHalf.map(talisman => {
-                        return <ChallengeItemComponent key={talisman.id} type={"talisman"} item={talisman} />
+                        return <ChallengeItemComponent key={"talisman-" + talisman.id} type={"talisman"} item={talisman} />
                     })
                 }
             </td>

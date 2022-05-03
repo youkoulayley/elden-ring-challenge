@@ -4,12 +4,13 @@ import { Col, Container, Row, ToastContainer } from "react-bootstrap"
 import * as seedrandom from "seedrandom"
 import { data } from "../../data/data"
 import {
+    enforceTalismans,
     excludeClasses,
+    excludeCrystalTears,
     excludeKeepsakes,
+    excludeTalismans,
+    excludeWeaponTypes,
     getConstraints,
-    getCrystalTears,
-    getTalismans,
-    getWeaponTypes,
 } from "../../helpers/rules"
 import { exportAsImage, generateInfoForSeedID, getInfoFromSeedID } from "../../helpers/utils"
 import ChallengeComponent from "../challenge/challenge.component"
@@ -100,49 +101,51 @@ const AppComponent = () => {
         const seeder = seedrandom(seedID)
 
         const {difficulty, flask, talismans, version} = getInfoFromSeedID(seedID)
-        if (difficulty === "0" || version === "") {
+        if (difficulty === "" || version === "v") {
             setError(new Error("invalid id"))
             return
         }
 
         const dif = data[version].difficulties[difficulty - 1]
-        const classes = excludeClasses(difficulty, version)
+        const classes = excludeClasses(version, difficulty)
         const randomClass = Math.floor(seeder() * classes.length)
 
-        const keepsakes = excludeKeepsakes(difficulty, version)
+        const selectedConstraints = []
+        for (let i = 0; i < dif.constraints; i++) {
+            const constraints = getConstraints(version, selectedConstraints, difficulty)
+            const randomConstraints = Math.floor(seeder() * constraints.length)
+
+            selectedConstraints.push(constraints[randomConstraints])
+        }
+
+        const keepsakes = excludeKeepsakes(version, difficulty, selectedConstraints)
         const randomKeepsakes = Math.floor(seeder() * keepsakes.length)
 
         const selectedCrystalTears = []
         if (flask === "1") {
             for (let i = 0; i < dif.crystalTears; i++) {
-                const crystalTears = getCrystalTears(selectedCrystalTears, version)
+                const crystalTears = excludeCrystalTears(version, selectedCrystalTears, selectedConstraints)
                 const randomCrystalTears = Math.floor(seeder() * crystalTears.length)
 
                 selectedCrystalTears.push(crystalTears[randomCrystalTears])
             }
         }
 
-        const selectedTalismans = []
+        let selectedTalismans = []
         if (talismans === "1") {
-            for (let i = 0; i < dif.talismans; i++) {
-                const talisman = getTalismans(selectedTalismans, version)
+            selectedTalismans = enforceTalismans(version, keepsakes[randomKeepsakes])
+
+            for (let i = selectedTalismans.length; i < dif.talismans; i++) {
+                const talisman = excludeTalismans(version, selectedTalismans, selectedConstraints)
                 const randomTalismans = Math.floor(seeder() * talisman.length)
 
                 selectedTalismans.push(talisman[randomTalismans])
             }
         }
 
-        const selectedConstraints = []
-        for (let i = 0; i < dif.constraints; i++) {
-            const constraints = getConstraints(selectedConstraints, difficulty, version)
-            const randomConstraints = Math.floor(seeder() * constraints.length)
-
-            selectedConstraints.push(constraints[randomConstraints])
-        }
-
         const selectedLeftWeaponTypes = []
         for (let i = 0; i < dif.weaponTypes; i++) {
-            const weaponTypes = getWeaponTypes(selectedLeftWeaponTypes, version)
+            const weaponTypes = excludeWeaponTypes(version, selectedLeftWeaponTypes, selectedConstraints)
             const randomWeaponTypes = Math.floor(seeder() * weaponTypes.length)
 
             selectedLeftWeaponTypes.push(weaponTypes[randomWeaponTypes])
@@ -150,7 +153,7 @@ const AppComponent = () => {
 
         const selectedRightWeaponTypes = []
         for (let i = 0; i < dif.weaponTypes; i++) {
-            const weaponTypes = getWeaponTypes(selectedRightWeaponTypes, version)
+            const weaponTypes = excludeWeaponTypes(version, selectedRightWeaponTypes, selectedConstraints)
             const randomWeaponTypes = Math.floor(seeder() * weaponTypes.length)
 
             selectedRightWeaponTypes.push(weaponTypes[randomWeaponTypes])
