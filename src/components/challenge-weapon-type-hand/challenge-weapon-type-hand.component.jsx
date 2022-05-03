@@ -10,7 +10,7 @@ const ChallengeWeaponTypeHandComponent = ({ side, hand }) => {
             <p>{t("challenge." + side + "Hand")}</p>
             {
                 hand.map(weaponType => {
-                    return <ChallengeItemComponent key={weaponType.id} type={"weaponType"} item={weaponType} />
+                    return <ChallengeItemComponent key={"weapon-type-" + hand + "-" + weaponType.id} type={"weaponType"} item={weaponType} />
                 })
             }
         </td>

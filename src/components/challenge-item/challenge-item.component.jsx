@@ -5,7 +5,7 @@ const ChallengeItemComponent = ({ type, item }) => {
     const { t } = useTranslation([ "common", type ])
 
     return (
-        <div key={item.id}>
+        <div key={type + "-" + item.name + "-" + item.id}>
             <img className={"item"}
                 src={"/" + type + "/" + item.id + ".png"}
                 alt={item.name}

@@ -13,7 +13,7 @@ const ChallengeConstraintsComponent = ({ constraints }) => {
                 <ul>
                     {
                         constraints.map(constraint => {
-                            return <li key={constraint.id}>{t("constraint:" + constraint.id)}</li>
+                            return <li key={"constraint-" + constraint.id}>{t("constraint:" + constraint.id)}</li>
                         })
                     }
                 </ul>
