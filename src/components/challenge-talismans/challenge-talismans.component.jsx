@@ -11,7 +11,7 @@ const ChallengeTalismansComponent = ({ talismans }) => {
         const firstHalf = talismans.slice().splice(0, middleIndex)
         const secondHalf = talismans.slice().splice(-middleIndex)
 
-        return { firstHalf, secondHalf }
+        return {firstHalf, secondHalf}
     }
 
     return (
@@ -19,14 +19,14 @@ const ChallengeTalismansComponent = ({ talismans }) => {
             <th scope="row">
                 {t("challenge.talismans")}
             </th>
-            <td colSpan={1}>
+            <td>
                 {
                     splitTalismans().firstHalf.map(talisman => {
                         return <ChallengeItemComponent key={talisman.id} type={"talisman"} item={talisman} />
                     })
                 }
             </td>
-            <td colSpan={1}>
+            <td>
                 {
                     splitTalismans().secondHalf.map(talisman => {
                         return <ChallengeItemComponent key={talisman.id} type={"talisman"} item={talisman} />

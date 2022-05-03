@@ -3,9 +3,10 @@ import React, { useEffect } from "react"
 import { Card, CardGroup } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import { getInfoFromSeedID } from "../../helpers/utils"
+import ActionsComponent from "../actions/actions.component"
 import "./saved-challenges.styles.scss"
 
-const SavedChallengesComponent = ({ id, reloadSaved, setReloadSaved, savedChallenges, searchChallenge }) => {
+const SavedChallengesComponent = ({ id, reloadSaved, setReloadSaved, savedChallenges, searchChallenge, removeSavedChallenge, editSavedChallenge}) => {
     const { t } = useTranslation([ "common", "difficulty" ])
 
     useEffect(() => {
@@ -24,12 +25,11 @@ const SavedChallengesComponent = ({ id, reloadSaved, setReloadSaved, savedChalle
             <CardGroup className={"cards-saved-challenges"}>
                 {
                     savedChallenges.map((e, idx) => (
-                        <div key={e.id}
-                            className={"saved-challenge"}
-                            onClick={() => searchChallenge(e.id)}
-                        >
+                        <div key={e.id}>
                             <Card key={e.id}
                                 bg={id === e.id ? "secondary" : "light"}
+                                className={"saved-challenge"}
+                                onClick={() => searchChallenge(e.id)}
                             >
                                 <Card.Img
                                     variant="top"
@@ -38,14 +38,21 @@ const SavedChallengesComponent = ({ id, reloadSaved, setReloadSaved, savedChalle
                                 />
                                 <Card.Body>
                                     <Card.Title>
-                    Challenge #{idx + 1}
+                                        {
+                                            e.name === undefined || e.name === "" ?
+                                                "Challenge #" + (idx + 1)
+                                                :
+                                                e.name
+                                        }
                                     </Card.Title>
+
                                     <p className={"text-start"}>
                                         <strong>ID</strong>: {e.id}
                                     </p>
                                     <p className={"text-start"}>
                                         <strong>{t("difficulty:name")}</strong>: {t("difficulty:" + getDifficulty(e.id))}
                                     </p>
+                                    <ActionsComponent key={e.id} removeSavedChallenge={removeSavedChallenge} id={e.id} name={e.name} editSavedChallenge={editSavedChallenge} />
                                 </Card.Body>
                             </Card>
                         </div>
