@@ -8,4 +8,12 @@
   .card {
     max-width: 24rem;
   }
+
+  .actions {
+    font-size: 1.3em;
+
+    .bi {
+      padding: 0 5px;
+    }
+  }
 }

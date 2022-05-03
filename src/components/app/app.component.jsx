@@ -45,13 +45,22 @@ const AppComponent = () => {
         let image = ""
         exportAsImage(element).then((e) => {
             image = e
-            setSavedChallenges([ ...savedChallenges, { "id": id, "image": image } ])
+            setSavedChallenges([ ...savedChallenges, { "id": id, "name": "", "image": image } ])
             localStorage.setItem("savedChallenges", JSON.stringify([ ...savedChallenges, { "id": id, "image": image } ]))
 
             setReloadSaved(true)
         })
 
         return true
+    }
+
+    const editSavedChallenge = (id, name) => {
+        const idx = savedChallenges.findIndex((challenge) => challenge.id === id)
+        savedChallenges[idx].name = name
+
+        setSavedChallenges(savedChallenges)
+        localStorage.setItem("savedChallenges", JSON.stringify(savedChallenges))
+        setReloadSaved(true)
     }
 
     const removeSavedChallenge = (id) => {
@@ -90,7 +99,7 @@ const AppComponent = () => {
     const searchChallenge = (seedID) => {
         const seeder = seedrandom(seedID)
 
-        const { difficulty, flask, talismans, version } = getInfoFromSeedID(seedID)
+        const {difficulty, flask, talismans, version} = getInfoFromSeedID(seedID)
         if (difficulty === "0" || version === "") {
             setError(new Error("invalid id"))
             return
@@ -114,7 +123,7 @@ const AppComponent = () => {
         }
 
         const selectedTalismans = []
-        if (talismans === "1" && difficulty !== "1") {
+        if (talismans === "1") {
             for (let i = 0; i < dif.talismans; i++) {
                 const talisman = getTalismans(selectedTalismans, version)
                 const randomTalismans = Math.floor(seeder() * talisman.length)
@@ -198,7 +207,9 @@ const AppComponent = () => {
                                     <hr />
                                     <SavedChallengesComponent searchChallenge={searchChallenge} id={challenge.id}
                                         reloadSaved={reloadSaved} setReloadSaved={setReloadSaved}
-                                        savedChallenges={savedChallenges} />
+                                        savedChallenges={savedChallenges} removeSavedChallenge={removeSavedChallenge}
+                                        editSavedChallenge={editSavedChallenge}
+                                    />
                                 </>
                                 :
                                 <></>
