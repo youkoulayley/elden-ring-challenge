@@ -11,7 +11,7 @@ const ChallengeCrystalTearsComponent = ({ crystalTears }) => {
         const firstHalf = crystalTears.slice().splice(0, middleIndex)
         const secondHalf = crystalTears.slice().splice(-middleIndex)
 
-        return { firstHalf, secondHalf }
+        return {firstHalf, secondHalf}
     }
 
     return (
