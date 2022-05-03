@@ -11,7 +11,7 @@ const ChallengeKeepsakeComponent = ({ keepsake }) => {
                 {t("challenge.keepsake")}
             </th>
             <td colSpan={2}>
-                <ChallengeItemComponent key={keepsake.id} type={"keepsake"} item={keepsake} />
+                <ChallengeItemComponent key={"keepsake-" + keepsake.id} type={"keepsake"} item={keepsake} />
             </td>
         </tr>
     )
