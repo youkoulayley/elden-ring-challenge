@@ -27,7 +27,12 @@ const SaveComponent = ({ id, savedChallenges, setSavedChallenge, removeSavedChal
     return (
         <OverlayTrigger overlay={
             <Tooltip>
-                {t("tooltipSave")}
+                {
+                    isSaved(id) ?
+                        t("tooltipUnsave")
+                        :
+                        t("tooltipSave")
+                }
             </Tooltip>
         }>
             <i key={id}

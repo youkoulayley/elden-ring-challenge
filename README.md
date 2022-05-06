@@ -49,7 +49,7 @@ yarn build
 - [x] Customize challenge (activating some parts or not)
 - [x] Add talismans
 - [x] Option to rename challenge 
-- [ ] Link items (some constraints should not allow some keepsake/weapons/talismans/crystal tears)
+- [x] Link items (some constraints should not allow some keepsake/weapons/talismans/crystal tears)
 - [ ] Share challenge with picture
 - [ ] Propose weapons and not weapons type (maybe with specific ash of war if regular weapon)
 - [ ] Adding more constraints

@@ -21,12 +21,12 @@ const FormChallengeComponent = ({ newChallenge, searchChallenge }) => {
                 <Form.Group controlId="flask">
                     <Form.Check checked={flaskOfWondrousPhysick}
                         onChange={() => setFlaskOfWondrousPhysick(!flaskOfWondrousPhysick)} type="checkbox"
-                        label="Flask of Wondrous Physick" />
+                        label={t("challenge.crystalTears")} />
                 </Form.Group>
                 <Form.Group controlId="talismans">
                     <Form.Check checked={talismans}
                         onChange={() => setTalismans(!talismans)} type="checkbox"
-                        label="Talismans" />
+                        label={t("challenge.talismans")} />
                 </Form.Group>
             </Col>
 
