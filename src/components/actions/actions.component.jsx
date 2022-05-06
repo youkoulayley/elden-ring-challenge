@@ -1,7 +1,11 @@
 import React, { useState } from "react"
+import { OverlayTrigger, Tooltip } from "react-bootstrap"
+import { useTranslation } from "react-i18next"
 import RenameModalComponent from "../rename-modal/rename-modal.component"
 
 const ActionsComponent = ({ id, name, removeSavedChallenge, editSavedChallenge }) => {
+    const {t} = useTranslation("common")
+
     const [ hoveredDelete, setHoveredDelete ] = useState(false)
     const toggleHoverDelete = () => setHoveredDelete(!hoveredDelete)
 
@@ -20,7 +24,7 @@ const ActionsComponent = ({ id, name, removeSavedChallenge, editSavedChallenge }
             chal = id
         }
 
-        const text = "You want to delete '"+ chal +"'.\nAre you sure ?"
+        const text = t("deleteConfirm", { id: chal })
         if (confirm(text) === true) {
             removeSavedChallenge(id)
         }
@@ -28,16 +32,28 @@ const ActionsComponent = ({ id, name, removeSavedChallenge, editSavedChallenge }
 
     return (
         <div className={"actions float-end"}>
-            <i onClick={handleShow}
-                className={hoveredEdit ? "bi bi-pen-fill" : "bi bi-pen"}
-                onMouseEnter={toggleHoverEdit}
-                onMouseLeave={toggleHoverEdit}
-            />
-            <i onClick={confirmDelete}
-                className={hoveredDelete ? "bi bi-trash-fill" : "bi bi-trash"}
-                onMouseEnter={toggleHoverDelete}
-                onMouseLeave={toggleHoverDelete}
-            />
+            <OverlayTrigger overlay={
+                <Tooltip>
+                    {t("tooltipEdit")}
+                </Tooltip>
+            }>
+                <i onClick={handleShow}
+                    className={hoveredEdit ? "bi bi-pen-fill" : "bi bi-pen"}
+                    onMouseEnter={toggleHoverEdit}
+                    onMouseLeave={toggleHoverEdit}
+                />
+            </OverlayTrigger>
+            <OverlayTrigger overlay={
+                <Tooltip>
+                    {t("tooltipDelete")}
+                </Tooltip>
+            }>
+                <i onClick={confirmDelete}
+                    className={hoveredDelete ? "bi bi-trash-fill" : "bi bi-trash"}
+                    onMouseEnter={toggleHoverDelete}
+                    onMouseLeave={toggleHoverDelete}
+                />
+            </OverlayTrigger>
             <RenameModalComponent id={id} 
                 challengeName={challengeName} 
                 show={show}

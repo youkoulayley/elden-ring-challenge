@@ -4,7 +4,7 @@
     "class": "Classe de départ",
     "keepsake": "Leg",
     "crystalTears": "Fiole de salut miraculeux",
-    "talismans": "Talismans autorisés",
+    "talismans": "Talismans",
     "constraints": "Contraintes",
     "weaponTypes": "Types d'armes autorisées",
     "leftHand": "Main gauche",
@@ -17,5 +17,13 @@
   "searchPlaceholder": "Recherchez un challenge",
   "search": "Rechercher",
   "tooltipSave": "Sauvegarder le challenge",
-  "savedChallenges": "Challenges sauvegardés"
+  "tooltipUnsave": "Supprimer le challenge",
+  "tooltipEdit": "Editer le challenge",
+  "tooltipDelete": "Supprimer le challenge",
+  "savedChallenges": "Challenges sauvegardés",
+  "renameTitle": "Modifier le challenge sauvegardé",
+  "deleteConfirm": "Vous voulez supprimer le challenge '{{id}}'.\nÊtes vous sûr ?",
+  "name": "Nom",
+  "cancel": "Annuler",
+  "save": "Sauvegarder"
 }
