@@ -4,7 +4,7 @@
     "class": "Starting Class",
     "keepsake": "Keepsake",
     "crystalTears": "Flask of Wondrous Physick",
-    "talismans": "Allowed talismans",
+    "talismans": "Talismans",
     "constraints": "Constraints",
     "weaponTypes": "Allowed weapon types",
     "leftHand": "Left Hand",
@@ -17,5 +17,13 @@
   "searchPlaceholder": "Search a challenge",
   "search": "Search",
   "tooltipSave": "Save the challenge",
-  "savedChallenges": "Saved challenges"
+  "tooltipUnsave": "Unsave the challenge",
+  "tooltipEdit": "Edit challenge",
+  "tooltipDelete": "Delete challenge",
+  "savedChallenges": "Saved challenges",
+  "renameTitle": "Edit saved challenge",
+  "deleteConfirm": "You want to delete '{{id}}'.\nAre you sure ?",
+  "name": "Name",
+  "cancel": "Cancel",
+  "save": "Save"
 }
