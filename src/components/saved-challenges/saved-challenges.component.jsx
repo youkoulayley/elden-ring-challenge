@@ -2,12 +2,14 @@ import { Base64 } from "js-base64"
 import React, { useEffect } from "react"
 import { Card, CardGroup } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
+import { useNavigate } from "react-router-dom"
 import { getInfoFromSeedID } from "../../helpers/utils"
 import ActionsComponent from "../actions/actions.component"
 import "./saved-challenges.styles.scss"
 
-const SavedChallengesComponent = ({ id, reloadSaved, setReloadSaved, savedChallenges, searchChallenge, removeSavedChallenge, editSavedChallenge}) => {
+const SavedChallengesComponent = ({ id, reloadSaved, setReloadSaved, savedChallenges, removeSavedChallenge, editSavedChallenge}) => {
     const { t } = useTranslation([ "common", "difficulty" ])
+    const navigate = useNavigate()
 
     useEffect(() => {
         setReloadSaved(false)
@@ -29,7 +31,7 @@ const SavedChallengesComponent = ({ id, reloadSaved, setReloadSaved, savedChalle
                             <Card key={e.id}
                                 bg={id === e.id ? "secondary" : "light"}
                                 className={"saved-challenge"}
-                                onClick={() => searchChallenge(e.id)}
+                                onClick={() => navigate("/" + e.id)}
                             >
                                 <Card.Img
                                     variant="top"
