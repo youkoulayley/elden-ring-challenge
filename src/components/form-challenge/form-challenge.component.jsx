@@ -1,11 +1,13 @@
 import React, { useState } from "react"
 import { Button, Col, Form, Row } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
+import { useNavigate } from "react-router-dom"
 import DifficultyDropdownComponent from "../difficulty-dropdown/difficulty-dropdown.component"
 import "./form-challenge.styles.scss"
 
-const FormChallengeComponent = ({ newChallenge, searchChallenge }) => {
+const FormChallengeComponent = ({ newChallenge }) => {
     const { t } = useTranslation("common")
+    const navigate = useNavigate()
 
     const [ difficulty, setDifficulty ] = useState(1)
     const [ id, setID ] = useState("")
@@ -54,7 +56,7 @@ const FormChallengeComponent = ({ newChallenge, searchChallenge }) => {
 
             <Col md={"auto"}>
                 <Button variant={"success"}
-                    onClick={() => searchChallenge(id)}
+                    onClick={() => navigate("/" + id)}
                 >
                     <i className="bi bi-search" />
                     {t("search")}

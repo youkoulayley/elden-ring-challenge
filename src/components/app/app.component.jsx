@@ -1,6 +1,7 @@
 import { nanoid } from "nanoid"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Col, Container, Row, ToastContainer } from "react-bootstrap"
+import { useNavigate, useParams } from "react-router-dom"
 import * as seedrandom from "seedrandom"
 import { data } from "../../data/data"
 import {
@@ -24,6 +25,9 @@ import WelcomeComponent from "../welcome/welcome.component"
 import "./app.styles.scss"
 
 const AppComponent = () => {
+    const params = useParams()
+    const navigate = useNavigate()
+
     const [ challenge, setChallenge ] = useState({})
     const [ savedChallenges, setSavedChallenges ] = useState(() => {
         let challenges = JSON.parse(localStorage.getItem("savedChallenges"))
@@ -35,6 +39,18 @@ const AppComponent = () => {
     })
     const [ errors, setErrors ] = useState([])
     const [ reloadSaved, setReloadSaved ] = useState(false)
+
+    useEffect(() => {
+        if (params.id !== "" && params.id !== undefined) {
+            const {difficulty, version} = getInfoFromSeedID(params.id)
+            if (difficulty === "" || version === "v") {
+                navigate("/")
+                setError(new Error("invalid id"))
+            }
+
+            searchChallenge(params.id)
+        }
+    }, [ params.id ])
 
     const setSavedChallenge = (id) => {
         if (savedChallenges.length === 3) {
@@ -94,7 +110,7 @@ const AppComponent = () => {
         const info = generateInfoForSeedID(difficulty, flask, talisman)
         const seedID = info + "-" + nanoid(12)
 
-        searchChallenge(seedID)
+        navigate("/" + seedID)
     }
 
     const searchChallenge = (seedID) => {
@@ -193,8 +209,7 @@ const AppComponent = () => {
                 <Row className="justify-content-md-center">
                     <Col md={8} className={"app-body text-center"}>
                         <WelcomeComponent />
-                        <FormChallengeComponent newChallenge={newChallenge}
-                            searchChallenge={searchChallenge} />
+                        <FormChallengeComponent newChallenge={newChallenge} />
                         <hr />
                         {
                             challenge.class ?
@@ -208,7 +223,7 @@ const AppComponent = () => {
                             savedChallenges.length > 0 ?
                                 <>
                                     <hr />
-                                    <SavedChallengesComponent searchChallenge={searchChallenge} id={challenge.id}
+                                    <SavedChallengesComponent id={challenge.id}
                                         reloadSaved={reloadSaved} setReloadSaved={setReloadSaved}
                                         savedChallenges={savedChallenges} removeSavedChallenge={removeSavedChallenge}
                                         editSavedChallenge={editSavedChallenge}

@@ -3,7 +3,7 @@ import LanguageDetector from "i18next-browser-languagedetector"
 import React from "react"
 import ReactDOM from "react-dom/client"
 import { I18nextProvider } from "react-i18next"
-
+import { BrowserRouter, Route, Routes } from "react-router-dom"
 import AppComponent from "./components/app/app.component"
 import reportWebVitals from "./reportWebVitals"
 import class_en from "./translations/en/class.json"
@@ -64,7 +64,12 @@ const root = ReactDOM.createRoot(container)
 root.render(
     <React.StrictMode>
         <I18nextProvider i18n={i18next}>
-            <AppComponent/>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<AppComponent />} />
+                    <Route path=":id" element={<AppComponent />} />
+                </Routes>
+            </BrowserRouter>
         </I18nextProvider>
     </React.StrictMode>,
 )

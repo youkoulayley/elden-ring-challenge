@@ -24,7 +24,12 @@ export const getInfoFromSeedID = (seedID) => {
         return {difficulty, flask, talismans, version}
     }
 
-    const info = decode(infob64).split("-")
+    let info = ""
+    try {
+        info = decode(infob64).split("-")
+    } catch (e) {
+        return {difficulty, flask, talismans, version}
+    }
 
     version = "v" + info[info.length - 1].replaceAll("*", "")
     if (!isValidVersion(version)) {
