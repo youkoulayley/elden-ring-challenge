@@ -22,8 +22,10 @@
   "tooltipDelete": "Delete challenge",
   "savedChallenges": "Saved challenges",
   "renameTitle": "Edit saved challenge",
-  "deleteConfirm": "You want to delete '{{id}}'.\nAre you sure ?",
+  "deleteConfirm": "You want to delete '{{id}}'.\nAre you sure?",
   "name": "Name",
   "cancel": "Cancel",
-  "save": "Save"
+  "save": "Save",
+  "shareTwitter": "Share on Twitter",
+  "shareMessage": "I'm currently trying to beat this challenge on Elden Ring. Check it out here:"
 }
