@@ -25,5 +25,7 @@
   "deleteConfirm": "Vous voulez supprimer le challenge '{{id}}'.\nÊtes vous sûr ?",
   "name": "Nom",
   "cancel": "Annuler",
-  "save": "Sauvegarder"
+  "save": "Sauvegarder",
+  "shareTwitter": "Partager sur Twitter",
+  "shareMessage": "Je vais essayer de réussir ce challenge sur Elden Ring. Jetez un oeil ici : "
 }
